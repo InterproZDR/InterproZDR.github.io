@@ -1,0 +1,65 @@
+<!--“夜夜吔业页”作为一个网站被访问的支持：github-->
+<!--夜夜吔业页 是 御坂12018号(这是bilibili的用户名)独立开发完成的页面，在github上开源，严禁冒名-->
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>夜夜吔业页 - 简约主页</title>
+    <link href="./index.css" type="text/css" rel="stylesheet">
+    <link href="./themes/theme-basic.css" type="text/css" rel="stylesheet">
+    <script src="index.js"></script>
+    <script src="themes/change.js"></script>
+  </head>
+  <body>
+    <!--用于实现主题的切换-->
+    <div id="themeCountainer">
+      <link id="theme" href="./themes/theme-light.css" type="text/css" rel="stylesheet">
+    </div>
+    <!--背景-->
+    <div id="bg" class="bg"></div>
+    <div id="contain">
+      <!--搜索框-->
+      <div id="search" class="not-select">
+        <div id="e-pos">
+          <div id="e-chs">
+            <span id="e-left" onclick="lbtn_click();">谷歌</span>
+            <span id="e-middle" onclick="e_middle_click();">百度</span>
+            <span id="e-right" onclick="rbtn_click();">必应</span>
+          </div>
+          <div id="sch">
+            <input type="text" placeholder="Input and search..." id="schbox" onkeydown="schboxKeydown();">
+            <input type="button" id="sch-go" value="S" onclick="search();">
+          </div>
+          <div id="theme-chs" onload="addThemesEvent(this);">
+            <span id="light" class="theme-selected-on" onclick="changeTheme(this);">light</span>
+            <span id="dark" class="theme-selected-off" onclick="changeTheme(this);">dark</span>
+            <span id="orange" class="theme-selected-off" onclick="changeTheme(this);">orange</span>
+            <span id="board" class="theme-selected-off" onclick="changeTheme(this);">board</span>
+          </div>
+          <div id="clean-box">
+            <span id="clean" class="theme-selected-on" onclick="clean();">clear</span>
+          </div>
+        </div>
+      </div>
+      <!--链接-->
+      <div id="link" class="not-select">
+        <a href="https://space.bilibili.com/22942209" title="直达开发者的B站空间" class="bottom-img-link" target="_blank"><img src="img/link/bilibili.jpg"></a>
+        <a href="https://github.com/SnangOfficial/SnangOfficial.github.io" title="本项目的github库" class="bottom-img-link" target="_blank"><img src="img/link/github.jpg"></a>
+		<a href="https://space.bilibili.com/3379951?from=search&seid=216130119485071040" title="强烈安利，ilem赛高！！！5毛一条，不删括号不给钱" class="bottom-img-link" target="_blank"><img src="https://i0.hdslb.com/bfs/face/2e25812e0ba75174c07fe9b61e68e20c66e89499.jpg_64x64.jpg"></a>
+		<a href="https://www.bilibili.com/video/av2129461" title="助攻神话！" class="bottom-img-link" target="_blank"><img src="http://i0.hdslb.com/bfs/archive/89252dadd2525f8190485a069f73cdf3d783cabc.jpg@380w_240h_100Q_1c.webp"></a>
+      </div>
+      <!--感谢Hitokoto的用爱发电！！！-->
+      <!--这里是一言-->
+      <div id="hitokoto-box">
+        <span id="hitokoto" title="一言 - Hitokoto提供API支持">
+          Loading... - 一言
+        </span>
+        <script src="https://v1.hitokoto.cn/?encode=js&select=%23hitokoto" defer></script>
+      </div>
+    </div>
+    <div style="display:none;">
+      哎呀，你发现了彩蛋！
+      Ohhhhhhhhhhh, U've found the easter egg!
+    </div>
+  </body>
+</html>

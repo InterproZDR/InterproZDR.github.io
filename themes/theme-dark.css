@@ -1,0 +1,41 @@
+
+/* theme-dark.css is a kind of theme in dark♂. */
+#e-left, #e-right{
+  color: #333;
+}
+
+#e-left:active, #e-right:active{
+  color: #222;
+}
+
+#e-middle{
+  color: black;
+  transition: text-shadow 0.14s;
+}
+
+#e-middle:hover{
+  text-shadow: grey -2px -4px 4px;
+}
+
+#e-middle:active{
+  text-shadow: grey 2px 4px 5px;
+}
+
+#hitokoto{
+  color: black;
+}
+
+.theme-selected-on{
+  background: #222;
+  color: #EEE;
+  border-color: #222;
+}
+
+@keyframes theme-wake-up-background {
+  from{
+    background: none;
+  }
+  to{
+    background: #222;
+  }
+}
