@@ -1,8 +1,7 @@
 
-/* The stylesheet index.css is filled with the bone-status elements' attributes. */
 /* 此文件用于存储关于页面上各个主干性元素的一些css属性，主要包括结构上的属性。 */
-/* 如果要编辑这些元素的通用视觉性属性，应该放在thenes/theme-basic.css中。 */
-/* 特例的视觉效果应该放在themes/***.css中作为“主题”，并修改change.js中的相关内容。 */
+/* 如果要编辑这些元素的通用视觉性属性，应该放在thenes\theme-basic.css中。 */
+/* 特例的视觉效果应该放在themes\***.css中作为“主题”，并修改change.js中的相关内容。 */
 
 html, body{
   width: 100%;
@@ -43,62 +42,73 @@ html, body{
 }
 
 #e-chs{
-	display: flex;
-	align-items: center;
-	justify-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 #e-left, #e-right{
-	font-size: 21px;
-	transition: font-size 0.4s;
+  font-size: 21px;
+  transition: font-size 0.4s;
 }
 
 #e-left:hover, #e-right:hover{
-	font-size: 25px;
+  font-size: 25px;
 }
 
 #e-middle{
-	font-size: 36px;
+  font-size: 42px;
 }
 
 #sch{
-  width: 100%;
-  display: inline;
+  display: flex;
 }
 
 #schbox{
-  width: 82%;
+  width: 95%;
   height: 40px;
   outline: medium;
   text-indent: 20px;
   border-radius: 24px;
-  border-top-right-radius: 7px;
-  border-bottom-right-radius: 7px;
+  border-top-right-radius: 0px;
+  border-bottom-right-radius: 0px;
 }
 
 #sch-go{
   padding: 13px;
   font-size: 16px;
-  outline: medium;
-  border-radius: 7px;
+  border-top-left-radius: 0px;
+  border-bottom-left-radius: 0px;
 }
 
-#theme-chs{
+/*#theme-chs, #clean-box{
   margin-left: 14px;
-}
+}*/
 
 #clean-box{
-  margin-left: 14px;
+  display: flex;
+  margin-top: -1px;
 }
 
-#link{
+#clean-box-space{
+  width: 95%;
+  display: hidden;
+}
+
+#clean{
+  font-size: 16px;
+  margin-left: 2px;
+  width: 35px;
+}
+
+/*#link{
   position: fixed;
   bottom: 0px;
   height: 38px;
   height: 38px;
-}
+}*/
 
-#hitokoto-box{
+/*#hitokoto-box{
   position: fixed;
   bottom: 0px;
   height: 27px;
@@ -109,7 +119,7 @@ html, body{
   float: right;
   height: 27px;
   font-size: 21px;
-}
+}*/
 
 /***************************************/
 
@@ -120,7 +130,7 @@ html, body{
   -khtml-user-select: none;
   user-select: none;
 }
-
+/*
 .theme-selected-on{
   border-radius: 4px;
   animation: theme-wake-up 0.36s, theme-wake-up-color 0.2s, theme-wake-up-background 0.2s;
@@ -148,4 +158,4 @@ html, body{
     height: auto;
     border-radius: auto;
   }
-}
+}*/

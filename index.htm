@@ -1,4 +1,4 @@
-<!--“夜夜吔业页”作为一个网站被访问的支持：github-->
+<!--“夜夜吔业页”是个github page-->
 <!--夜夜吔业页 是 御坂12018号(这是bilibili的用户名)独立开发完成的页面，在github上开源，严禁冒名-->
 <!DOCTYPE html>
 <html>
@@ -27,39 +27,31 @@
             <span id="e-right" onclick="rbtn_click();">必应</span>
           </div>
           <div id="sch">
-            <input type="text" placeholder="Input and search..." id="schbox" onkeydown="schboxKeydown();">
-            <input type="button" id="sch-go" value="S" onclick="search();">
+            <input type="text" placeholder="Input..." id="schbox" onkeydown="schboxKeydown();" title="Type in what you want.">
+            <input type="button" id="sch-go" value=">" onclick="search();" title="Let's go!">
           </div>
-          <div id="theme-chs" onload="addThemesEvent(this);">
+          <!--<div id="theme-chs" onload="addThemesEvent(this);" class="en-font">
             <span id="light" class="theme-selected-on" onclick="changeTheme(this);">light</span>
             <span id="dark" class="theme-selected-off" onclick="changeTheme(this);">dark</span>
             <span id="orange" class="theme-selected-off" onclick="changeTheme(this);">orange</span>
             <span id="board" class="theme-selected-off" onclick="changeTheme(this);">board</span>
-          </div>
-          <div id="clean-box">
-            <span id="clean" class="theme-selected-on" onclick="clean();">clear</span>
+          </div>-->
+          <div id="clean-box" class="en-font">
+            <input type="button" id="clean-box-space" value="" onclick="" title="Easter egg here!">
+            <input type="button" id="clean" value="cls" onclick="clean();">
           </div>
         </div>
       </div>
-      <!--链接-->
-      <div id="link" class="not-select">
-        <a href="https://space.bilibili.com/22942209" title="直达开发者的B站空间" class="bottom-img-link" target="_blank"><img src="img/link/bilibili.jpg"></a>
-        <a href="https://github.com/InterproZDR/InterproZDR.github.io" title="本项目的github库" class="bottom-img-link" target="_blank"><img src="img/link/github.jpg"></a>
-		<a href="https://space.bilibili.com/3379951?from=search&seid=216130119485071040" title="强烈安利，ilem赛高！！！5毛一条，不删括号不给钱" class="bottom-img-link" target="_blank"><img src="https://i0.hdslb.com/bfs/face/2e25812e0ba75174c07fe9b61e68e20c66e89499.jpg_64x64.jpg"></a>
-		<a href="https://www.bilibili.com/video/av2129461" title="助攻神话！" class="bottom-img-link" target="_blank"><img src="http://i0.hdslb.com/bfs/archive/89252dadd2525f8190485a069f73cdf3d783cabc.jpg@380w_240h_100Q_1c.webp"></a>
-      </div>
+      <!--链接--
       <!--感谢Hitokoto的用爱发电！！！-->
-      <!--这里是一言-->
+      <!--这里是一言--
       <div id="hitokoto-box">
-        <span id="hitokoto" title="一言 - Hitokoto提供API支持">
+        <span id="hitokoto" title="一言 - Hitokoto提供API">
           Loading... - 一言
         </span>
-        <script src="https://v1.hitokoto.cn/?encode=js&select=%23hitokoto" defer></script>
+        <script src="https://v1.hitokoto.cn/?encode=js&sel______________ect=%23hitokoto" defer></script>
       </div>
-    </div>
-    <div style="display:none;">
-      哎呀，你发现了彩蛋！
-      Ohhhhhhhhhhh, U've found the easter egg!
+	  <!---->
     </div>
   </body>
 </html>

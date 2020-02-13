@@ -10,50 +10,58 @@
   animation: page-HelloWorld 0.42s;
 }
 
-#schbox{
-  background-color: rgba(255, 255, 255, 0.7);
-  color: black;
-  font-size: 15px;
-  box-shadow: grey 0px 0px 7px;
-  transition: background-color 0.14s, box-shadow 0.16s;
-  border-left: 2px rgba(64, 64, 192, 0.2) solid;
-  border-top: 2px rgba(0, 0, 255, 0.2) solid;
-  border-right: 2px rgba(64, 64, 192, 0.2) solid;
-  border-bottom: 2px rgba(128, 128, 128, 0.2) solid;
-  border-spacing: 3px;
-}
-
-#schbox:hover{
-  background-color: rgba(255, 255, 255, 1);
-  box-shadow: grey 0px 0px 2px;
-}
-
 #e-left, #e-middle, #e-right{
   transition: color 0.14s;
   cursor: pointer;
 }
 
+#schbox{
+  background-color: rgba(255, 255, 255, 0.4);
+  color: black;
+  font-size: 15px;
+  transition: background-color 0.18s;
+  border-left: 2px rgba(64, 64, 192, 0.2) solid;
+  border-top: 2px rgba(0, 0, 255, 0.2) solid;
+  border-right: none;
+  border-bottom: 2px rgba(128, 128, 128, 0.2) solid;
+  border-spacing: -3px;
+}
+
+#schbox:hover{
+  background-color: rgba(255, 255, 255, 1);
+}
+
 #sch-go{
-  color: #48D;
+  color: #EDEDED;
   font-weight: bold;
-  background-color: rgba(255, 255, 255, 0.6);
-  border: 1px #99F solid;
-  box-shadow: grey 0px 0px 11px;
-  transition: background-color 0.14s, box-shadow 0.16s;
+  background-color: rgb(0, 140, 220);
+  border: none;
+  cursor: pointer;
+  outline: medium;
+  transition: background-color 0.14s;
 }
 
 #sch-go:hover{
-  background-color: rgba(255, 255, 255, 0.87);
-  box-shadow: grey 0px 0px 3px;
+  background-color: #5BE
 }
 
 #sch-go:active{
-  background-color: rgba(231, 231, 231, 0.9);
+  background-color: rgb(0, 120, 185);
+}
+
+#clean-box-space{
+  border: none;
+  background: none;
+  outline: medium;
 }
 
 #clean{
+  background: #5BE;
+  border: none;
+  color: #EDEDED;
+  cursor: pointer;
   opacity: 1.0;
-  transition: opacity 0.12s;
+  transition: opacity 0.12s, background-color 0.6s;
 }
 
 #clean:hover{
@@ -63,7 +71,7 @@
 #clean:active{
   opacity: 0.64;
 }
-
+/*
 #link, #hitokoto{
   opacity: 0.64;
   transition: opacity 0.18s;
@@ -90,6 +98,12 @@
 #hitokoto:hover{
   opacity: 0.95;
   text-shadow: grey 0px 0px 1px;
+}*/
+
+/****************************************************/
+
+.en-font{
+  font-family: 'UD Digi Kyokasho NP-B';/**/
 }
 
 .bg, .bg_{
@@ -101,11 +115,12 @@
   /*background: url('https://s0.xinger.ink/fj/fjurl.php');*/
   /*background: url('https://s0.xinger.ink/acgimg/acgurl.php');*/
   /*background: url('http://pic.tsmp4.net/api/fengjing/img.php');*/
-  background: url('https://api.dujin.org/bing/1920.php');
+  /*background: url('https://api.dujin.org/bing/1920.php');*/
+  background: url('https://i0.hdslb.com/bfs/album/72d524ee5ebca1370d3023c0ecf4b8e87cdbdd96.jpg');
   background-repeat: no-repeat;
   background-attachment: fixed;
 }
-
+/*
 .theme-selected-on{
   background: #5BE;
   color: #EEE;
@@ -128,7 +143,7 @@
   to{
     color: #EEE;
   }
-}
+}*/
 
 @keyframes page-HelloWorld {
   from{
