@@ -1,57 +1,107 @@
-<!--“夜夜吔业页”是个github page-->
-<!--夜夜吔业页 是 御坂12018号(这是bilibili的用户名)独立开发完成的页面，在github上开源，严禁冒名-->
+<!--Warma Fans 是 御坂12018号(这是bilibili的用户名)独立开发完成的页面，在github上开源，严禁冒名-->
 <!DOCTYPE html>
 <html>
   <head>
     <meta charset="utf-8">
-    <title>夜夜吔业页 - 简约主页</title>
-    <link href="./index.css" type="text/css" rel="stylesheet">
-    <link href="./themes/theme-basic.css" type="text/css" rel="stylesheet">
-    <script src="index.js"></script>
-    <script src="themes/change.js"></script>
+    <title>Warma Fans!!!</title>
+    <link href="./css/column.css" type="text/css" rel="stylesheet">
+    <link href="./css/column_link.css" type="text/css" rel="stylesheet">
+    <link href="./css/index.css" type="text/css" rel="stylesheet">
+    <link href="./css/index_visual.css" type="text/css" rel="stylesheet">
+    <script src="./js/index.js"></script>
+    <script src="./js/dialog.js"></script>
+    <script src="./js/column_link.js"></script>
+    <script src="./js/EasterEgg.js"></script>
+    <script src="./js/cookie.js"></script>
   </head>
   <body>
-    <!--用于实现主题的切换-->
-    <div id="themeCountainer">
-      <link id="theme" href="./themes/theme-light.css" type="text/css" rel="stylesheet">
-    </div>
     <!--背景-->
     <div id="bg" class="bg"></div>
     <div id="contain">
-      <!--搜索框-->
+      <!--搜索部分-->
       <div id="search" class="not-select">
-        <div id="e-pos">
+        <!--引擎选择-->
+        <div id="e-box">
           <div id="e-chs">
             <span id="e-left" onclick="lbtn_click();">谷歌</span>
             <span id="e-middle" onclick="e_middle_click();">百度</span>
             <span id="e-right" onclick="rbtn_click();">必应</span>
           </div>
+          <!--输入框和搜索键-->
           <div id="sch">
-            <input type="text" placeholder="Input..." id="schbox" onkeydown="schboxKeydown();" title="Type in what you want.">
+            <input type="text" placeholder="Input..." id="schbox" required="required" onkeydown="schboxKeydown();" title="Type in what you want."/>
             <input type="button" id="sch-go" value=">" onclick="search();" title="Let's go!">
+            <input type="button" id="clean" value="×" onclick="clean();">
           </div>
-          <!--<div id="theme-chs" onload="addThemesEvent(this);" class="en-font">
-            <span id="light" class="theme-selected-on" onclick="changeTheme(this);">light</span>
-            <span id="dark" class="theme-selected-off" onclick="changeTheme(this);">dark</span>
-            <span id="orange" class="theme-selected-off" onclick="changeTheme(this);">orange</span>
-            <span id="board" class="theme-selected-off" onclick="changeTheme(this);">board</span>
-          </div>-->
-          <div id="clean-box" class="en-font">
-            <input type="button" id="clean-box-space" value="" onclick="" title="Easter egg here!">
-            <input type="button" id="clean" value="cls" onclick="clean();">
+          <!--Warma!!!-->
+          <div id="warma-box">
+            <input type="button" id="warma-box-space" value="" onclick="EasterEgg();" title="Easter egg here!">
+            <input type="button" id="warma" value="沃" onclick="Warma();" title="Let us go to the Bilibili space of Warma!!!">
           </div>
         </div>
       </div>
-      <!--链接--
-      <!--感谢Hitokoto的用爱发电！！！-->
-      <!--这里是一言--
-      <div id="hitokoto-box">
-        <span id="hitokoto" title="一言 - Hitokoto提供API">
-          Loading... - 一言
-        </span>
-        <script src="https://v1.hitokoto.cn/?encode=js&sel______________ect=%23hitokoto" defer></script>
-      </div>
-	  <!---->
     </div>
+    <!--左侧栏目-->
+    <div id="column">
+      <div id="warma-recommendation">
+        <div id="warma-user-box" class="not-select">
+          <a href="https://space.bilibili.com/53456" target="_blank" id="warma-username" class="en-font">Warma</a>
+          <a href="https://space.bilibili.com/53456" target="_blank"><div id="warma-avatar" title="注：此动画创意来自[叶落阁]"></div></a>
+        </div>
+        <hr/>
+      </div>
+      <!--链接-->
+      <div id="link-box-box">
+        <div id="link-box">
+          <div class="link-loaf">
+            <a href="https://space.bilibili.com/53456" target="_blank" id="link-warma1">Warma的b站空间</a>
+          </div>
+          <div class="link-loaf">
+            <a href="https://weibo.com/warmawarma" target="_blank" id="link-warma2">Warma的微博</a>
+          </div>
+          <div class="link-loaf">
+            <a href="https://github.com/InterproZDR/InterproZDR.github.io" target="_blank">本项目的github库1</a>
+          </div>
+          <!--自定义部分-->
+          <!--'customizeLink-'+数组下标 -->
+          <div class="link-loaf" id="customizeLink-0">
+            <a href="https://github.com/InterproZDR/InterproZDR.github.io" id="customizeLink-0-name" target="_blank">本项目的github库2</a>
+            <span class="link-loaf-edit" onclick="editLink_click(0);"></span>
+          </div>
+          <!--添加链接-->
+          <div id="link-loaf-add" class="not-select" onclick="addLink_click();">+</div>
+        </div>
+      </div>
+      <!--底部文字-->
+      <div id="bottom-box">
+        <hr/>
+        <span id="bottom">
+          辣个爱自搜的女人会来吗？
+        </span>
+      </div>
+    </div>
+    <!--编辑链接的对话框-->
+    <div id="dialog" style="display: none;">
+      <div id="dialog-delete" class="not-select" onclick="dialogDeleteButton_click();"></div>
+      <div id="dialog-title-box">
+        <div id="dialog-title" class="not-select">编辑链接</div>
+      </div>
+      <div id="dialog-content-box">
+        <div class="dialog-input-box">
+          链接名称：
+          <input type="text" id="dialog-linkname-input" class="input-box" placeholder="链接名称"/>
+        </div>
+        <div class="dialog-input-box">
+          链接URL：
+          <input type="text" id="dialog-linkurl-input" class="input-box" placeholder="链接URL"/>
+        </div>
+      </div>
+      <div id="dialog-button-box">
+        <input type="button" id="dialog-sure-button" value="Sure" onclick="dialogSureButton_click()"/>
+        <input type="button" id="dialog-cancel-button" value="Cancel" onclick="closeDialog();" />
+      </div>
+    </div>
+    <link href="./css/dialog.css" type="text/css" rel="stylesheet">
+    <!--Dialog ends-->
   </body>
 </html>

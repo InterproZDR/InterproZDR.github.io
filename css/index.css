@@ -1,7 +1,6 @@
 
 /* 此文件用于存储关于页面上各个主干性元素的一些css属性，主要包括结构上的属性。 */
-/* 如果要编辑这些元素的通用视觉性属性，应该放在thenes\theme-basic.css中。 */
-/* 特例的视觉效果应该放在themes\***.css中作为“主题”，并修改change.js中的相关内容。 */
+/* 侧边栏的属性放在column.css中 */
 
 html, body{
   width: 100%;
@@ -10,6 +9,26 @@ html, body{
   padding: 0;
 }
 
+a{
+  text-decoration: none;
+}
+
+a:hover{
+  text-decoration: underline;
+}
+
+::-webkit-scrollbar{
+  height: 100%;
+  width: 7px;
+}
+
+::-webkit-scrollbar-thumb{
+  background-color: rgba(60, 80, 120, 0.7);
+}
+
+::-webkit-scrollbar-track{
+  background-color: rgba(60, 40, 80, 0);
+}
 /***************************************/
 
 #bg{
@@ -32,11 +51,10 @@ html, body{
 }
 
 #search{
-  /*margin: 0.93% 12% auto 12%;*/
   margin: 12% 11% 12% 11%;
 }
 
-#e-pos{
+#e-box{
   margin: auto 10% auto 10%;
   padding: 4% 5% 3.31% 5%;
 }
@@ -67,11 +85,22 @@ html, body{
 #schbox{
   width: 95%;
   height: 40px;
+  index: 1;
   outline: medium;
   text-indent: 20px;
   border-radius: 24px;
   border-top-right-radius: 0px;
   border-bottom-right-radius: 0px;
+}
+
+#schbox:valid ~ #clean{
+  background-color: rgb(150, 150, 150);
+  color: white;
+  display: inherit;
+}
+
+#schbox:valid{
+  width: calc(100% - 38px);
 }
 
 #sch-go{
@@ -81,45 +110,34 @@ html, body{
   border-bottom-left-radius: 0px;
 }
 
-/*#theme-chs, #clean-box{
-  margin-left: 14px;
-}*/
-
-#clean-box{
-  display: flex;
-  margin-top: -1px;
-}
-
-#clean-box-space{
-  width: 95%;
-  display: hidden;
-}
-
 #clean{
-  font-size: 16px;
-  margin-left: 2px;
-  width: 35px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: none;
+  height: 20px;
+  margin-left: -60px;
+  margin-top: 12px;
+  position: relative;
+  width: 20px;
+  z-index: 999;
 }
 
-/*#link{
-  position: fixed;
-  bottom: 0px;
-  height: 38px;
-  height: 38px;
-}*/
-
-/*#hitokoto-box{
-  position: fixed;
-  bottom: 0px;
-  height: 27px;
+#warma-box{
+  display: flex;
   width: 100%;
+  /*margin-top: -1px;*/
 }
 
-#hitokoto{
-  float: right;
-  height: 27px;
-  font-size: 21px;
-}*/
+#warma-box-space{
+  width: 95%;
+}
+
+#warma{
+  font-size: 16px;
+  margin-left: 0px;
+  width: 36px;
+  height: 24px;
+}
 
 /***************************************/
 
@@ -130,32 +148,3 @@ html, body{
   -khtml-user-select: none;
   user-select: none;
 }
-/*
-.theme-selected-on{
-  border-radius: 4px;
-  animation: theme-wake-up 0.36s, theme-wake-up-color 0.2s, theme-wake-up-background 0.2s;
-}
-
-.theme-selected-off, .theme-selected-on{
-  margin: 7px;
-  cursor: pointer;
-  border-width: 3px;
-}
-
-.bottom-img-link>img{
-  height: 38px;
-  width: 38px;
-}
-
-@keyframes theme-wake-up {
-  from{
-    width: 0px;
-    height: 0px;
-    border-radius: 50%;
-  }
-  to{
-    width: auto;
-    height: auto;
-    border-radius: auto;
-  }
-}*/
