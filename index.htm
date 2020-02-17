@@ -4,10 +4,11 @@
   <head>
     <meta charset="utf-8">
     <title>Warma Fans!!!</title>
-    <link href="./css/column.css" type="text/css" rel="stylesheet">
-    <link href="./css/column_link.css" type="text/css" rel="stylesheet">
-    <link href="./css/index.css" type="text/css" rel="stylesheet">
-    <link href="./css/index_visual.css" type="text/css" rel="stylesheet">
+    <link href="./css/column.css" type="text/css" rel="stylesheet" />
+    <link href="./css/column_link.css" type="text/css" rel="stylesheet" />
+    <link href="./css/index.css" type="text/css" rel="stylesheet" />
+    <link href="./css/index_visual.css" type="text/css" rel="stylesheet" />
+    <link rel="Shortcut Icon" href="./img/favion.ico" type="image/x-icon" />
     <script src="./js/index.js"></script>
     <script src="./js/dialog.js"></script>
     <script src="./js/column_link.js"></script>
@@ -60,14 +61,14 @@
             <a href="https://weibo.com/warmawarma" target="_blank" id="link-warma2">Warma的微博</a>
           </div>
           <div class="link-loaf">
-            <a href="https://github.com/InterproZDR/InterproZDR.github.io" target="_blank">本项目的github库1</a>
+            <a href="https://github.com/InterproZDR/InterproZDR.github.io" target="_blank">本项目的github库</a>
           </div>
           <!--自定义部分-->
-          <!--'customizeLink-'+数组下标 -->
-          <div class="link-loaf" id="customizeLink-0">
+          <!--样例-->
+          <!--<div class="link-loaf" id="customizeLink-0">
             <a href="https://github.com/InterproZDR/InterproZDR.github.io" id="customizeLink-0-name" target="_blank">本项目的github库2</a>
-            <span class="link-loaf-edit" onclick="editLink_click(0);"></span>
-          </div>
+            <span class="link-loaf-edit" id="customizeLink-0-edit" onclick="editLink_click(0);"></span>
+          </div>-->
           <!--添加链接-->
           <div id="link-loaf-add" class="not-select" onclick="addLink_click();">+</div>
         </div>
@@ -89,11 +90,11 @@
       <div id="dialog-content-box">
         <div class="dialog-input-box">
           链接名称：
-          <input type="text" id="dialog-linkname-input" class="input-box" placeholder="链接名称"/>
+          <input type="text" id="dialog-linkname-input" class="input-box" placeholder="链接名称" onkeydown="dialogInputbox_onKeyDown();"/>
         </div>
         <div class="dialog-input-box">
           链接URL：
-          <input type="text" id="dialog-linkurl-input" class="input-box" placeholder="链接URL"/>
+          <input type="text" id="dialog-linkurl-input" class="input-box" placeholder="链接URL" onkeydown="dialogInputbox_onKeyDown();"/>
         </div>
       </div>
       <div id="dialog-button-box">

@@ -33,7 +33,7 @@
 
 /* 一个链接”条“” */
 .link-loaf::before{
-  content: '-';
+  content: '~';
   color: #6CF;
   font-size: 16px;
   transition: margin-left 0.4s;
@@ -64,3 +64,5 @@
 .link-loaf>a:hover{
   color: #6CF;
 }
+
+/* 我已经完全爱上Warma啦！*/

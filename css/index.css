@@ -19,7 +19,7 @@ a:hover{
 
 ::-webkit-scrollbar{
   height: 100%;
-  width: 7px;
+  width: 4px;
 }
 
 ::-webkit-scrollbar-thumb{
@@ -148,3 +148,4 @@ a:hover{
   -khtml-user-select: none;
   user-select: none;
 }
+/* 我已经完全爱上Warma啦！*/

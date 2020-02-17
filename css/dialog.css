@@ -3,7 +3,7 @@
 
 #dialog{
   background-color: white;
-  border-radius: 10px;
+  border-radius: 16px;
   display: ruby;
   height: 50vh;
   top: 25vh;
@@ -102,3 +102,4 @@
 #dialog>#dialog-content-box>.dialog-input-box>.input-box{
   width: 27vw;
 }
+/* 我已经完全爱上Warma啦！*/
