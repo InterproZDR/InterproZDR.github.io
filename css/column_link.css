@@ -34,7 +34,7 @@
 /* 一个链接”条“” */
 .link-loaf::before{
   content: '~';
-  color: #6CF;
+  color: yellow;
   font-size: 16px;
   transition: margin-left 0.4s;
 }
