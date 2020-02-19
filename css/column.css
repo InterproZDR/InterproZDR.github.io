@@ -3,13 +3,15 @@
 
 #column{
   background-color: rgba(250, 190, 200, 0);
+  filter: blur(3px);
   position: fixed;
+  min-width: 120px;
   left: 0px;
   top: 0px;
-  transition: width 0.5s, background-color 0.6s, opacity 0.4s, box-shadow 0.65s;
+  transition: width 0.3s, background-color 0.4s, opacity 0.4s, box-shadow 0.3s, filter 0.3s;
   opacity: 0;
   height: 100vh;
-  width: 9%;
+  width: 8%;
 }
 
 #column>hr, #column>div>hr{
@@ -22,6 +24,7 @@
 #column:hover{
   background-color: rgba(60, 40, 80, 0.66);
   box-shadow: rgb(128, 128, 128) 0px 0px 4px;
+  filter: blur(0px);
   opacity: 1;
   width: 12%;
 }

@@ -124,7 +124,7 @@ function clean(){
 
 // 沃玛！！！
 function Warma(){
-  window.open('https://space.bilibili.com/53456');
+  document.getElementById('schbox').value = 'Warma';
 }
 // 沃尔玛（误）
 /* 我已经完全爱上Warma啦！*/
