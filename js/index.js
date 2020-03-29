@@ -1,79 +1,95 @@
 
 /* 主页面上的javascript文件 */
 
-console.log('I have deeply fallen in love with warma.');
-console.log('加油武汉，加油中国！- 坐凳人 于2020年2月15日10点46分');
+let titles = ['嗯，你快回来呀(*／ω＼*)', '嗯？你去哪儿啦？', '呜，你不要伦家了吗'];
+let welcomeBackTitle = '欢迎回来！(〃\'▽\'〃)';
+let normalTitle = 'Outpro\'s Frontpage!';
 
-var warmaSays = [ '有东西在你身后', '魂儿飞', '有蜘蛛！啊啊啊啊啊啊啊啊啊啊……', '死(kuai)亡(le)圣诞',
-                  '咖啡玛', '忆雨童话故事', 'Warma好处都有啥？', '因为你是一只红苍蝇', '我想好了，你可以进来了',
-                  'Warma达成百万粉丝！', '诗岸？沃玛？'];
-var normalTitle="Warma Fans!!!";
-
+// 离开页面后随机标题
 document.addEventListener('visibilitychange', function(){
   if (document.visibilityState == 'hidden'){
-    document.title = warmaSays[Math.floor(Math.random() * Object.keys(warmaSays).length)];
+    document.title = titles[Math.floor(Math.random() * Object.keys(titles).length)];
   }
   else{
-    document.title = normalTitle;
+    document.title = welcomeBackTitle;
+    setTimeout(function () { document.title = normalTitle }, 1000);
   }
 });
 
-var engine = 2;// engine:当前使用的引擎的编号
-var searchto = {'google' : 'https://www.google.com/search?q=%s&oq=%s&ie=UTF-8',
-                'baidu' : 'https://www.baidu.com/s?wd=%s',
-                'mengniang' : 'https://zh.moegirl.org/index.php?search=%s',
-                'bilibili' : 'https://search.bilibili.com/all?keyword=%s&from_source=banner_search',
-                'bing' : 'https://cn.bing.com/search?q=%s',
-  	            'google_translate' : 'https://translate.google.cn/#view=home&op=translate&sl=auto&tl=zh-CN&text=%s'};
-var searchnan = {'google' : 'https://www.google.com/',
-                 'baidu' : 'https://www.baidu.com/',
-                 'mengniang' : 'https://zh.moegirl.org/Mainpage',
-                 'bilibili' : 'https://www.bilibili.com',
-                 'bing' : 'https://cn.bing.com/',
-                 'google_translate' : 'https://translate.google.cn/'};  // 当输入内容为空时进行“搜索”，打开的页面
-var cnname = {'google' : '谷歌',
-                 'baidu' : '百度',
-                 'mengniang' : '萌娘',
-                 'bilibili' : 'B站',
-                 'bing' : '必应',
-                 'google_translate' : '翻译'};
-var eorder = {1 : 'google',
-                2 : 'baidu',
-                3 : 'bing',
-                4 : 'bilibili',
-                5 : 'mengniang',
-                6 : 'google_translate'};
+class Engine{
+  name;       // 引擎名
+  searchto;   // 有输入时跳转页面
+  searchnan;  // 默认跳转页面
+  constructor(name, searchto, searchnan) {
+    this.name = name;
+    this.searchto = searchto;
+    this.searchnan = searchnan;
+  }
+  // 转换为JSON格式
+  // 返回值为JSON数组
+  toJSON() {
+    return "{\'name\': \'" + name + "\', \'searchto\': \'" + searchto + "\', \'searchnan\': \'" + searchnan + "\'}";
+  }
+}
+
+var engineList = [null, 
+  new Engine('谷歌', 'https://www.google.com/search?q=%s&oq=%s&ie=UTF-8', 'https://www.google.com/'),
+  new Engine('百度', 'https://www.baidu.com/s?wd=%s', 'https://www.baidu.com/'),
+  new Engine('必应', 'https://cn.bing.com/search?q=%s', 'https://cn.bing.com/'),
+  new Engine('B站', 'https://search.bilibili.com/all?keyword=%s&from_source=banner_search', 'https://www.bilibili.com'),
+  new Engine('萌百', 'https://zh.moegirl.org/index.php?search=%s', 'https://zh.moegirl.org/Mainpage'),
+  new Engine('翻译', 'https://translate.google.cn/#view=home&op=translate&sl=auto&tl=zh-CN&text=%s', 'https://translate.google.cn/')];
+var eChangeDelay = 150;     // 改变引擎的延迟（var用于调戏）
+let engine = 2;             // engine:当前使用的引擎的编号
+let reloadInterval, reloadTimeout, eChangeDirection;
 
 // 自被选中的引擎（即engine所指）向左或向右数abs(i)个引擎。i>0表示向右，i<0表示向左（引擎按编号顺序排在数轴上就有了前面的左和右）
 function getNearbyEngine(i){
   if (engine + i <= 0)
-    return Object.keys(eorder).length;
-  else if (engine + i > Object.keys(eorder).length)
+    return Object.keys(engineList).length - 1;
+  else if (engine + i > Object.keys(engineList).length - 1)
     return 1;
   else
     return engine + i;
 }
 
-// 点击了左数第一个引擎
-function lbtn_click(){
-  if (--engine <= 0)
-    engine = Object.keys(eorder).length;
-  var le = eorder[getNearbyEngine(-1)], mid = eorder[getNearbyEngine(0)], ri = eorder[getNearbyEngine(1)];
-  document.getElementById('e-left').innerHTML = cnname[le];
-  document.getElementById('e-middle').innerHTML = cnname[mid];
-  document.getElementById('e-right').innerHTML = cnname[ri];
-  document.getElementById('schbox').focus();
+// 延时函数
+function sleep(delay){
+  var start = (new Date()).getTime();
+  while ((new Date).getTime() - start < delay){
+    continue;
+  }
 }
 
-// 点击了右数第一个引擎
-function rbtn_click(){
-  if (++engine > Object.keys(eorder).length)
+// 改变引擎
+function changeEngine(){
+  engine += eChangeDirection;
+  if (engine <= 0)
+    engine = Object.keys(engineList).length - 1;
+  if (engine > Object.keys(engineList).length - 1)
     engine = 1;
-  var le = eorder[getNearbyEngine(-1)], mid = eorder[getNearbyEngine(0)], ri = eorder[getNearbyEngine(1)];
-  document.getElementById('e-left').innerHTML = cnname[le];
-  document.getElementById('e-middle').innerHTML = cnname[mid];
-  document.getElementById('e-right').innerHTML = cnname[ri];
-  document.getElementById('schbox').focus();
+  var le = getNearbyEngine(-1), mid = getNearbyEngine(0), ri = getNearbyEngine(1);
+  document.getElementById('e-left').innerHTML = engineList[le].name;
+  document.getElementById('e-middle').innerHTML = engineList[mid].name;
+  document.getElementById('e-right').innerHTML = engineList[ri].name;
+}
+
+// 鼠标按下#e-left或#e-right
+function btn_mousedown(dir){
+  eChangeDirection = dir;
+  // 先切换一次，等eChangeDelay后再开始自动切换
+  changeEngine();
+  reloadTimeout = setTimeout(function(){
+    reloadInterval = setInterval(changeEngine, eChangeDelay);
+  },eChangeDelay * 1.7);
+}
+
+// 关闭自动切换
+function stopAutoChange(){
+  clearInterval(reloadInterval);
+  clearTimeout(reloadTimeout);
+  reloadInterval = undefined;
+  reloadTimeout = undefined;
 }
 
 // 处理输入框的按键的函数，主要处理按下的回车键
@@ -98,12 +114,12 @@ function schboxKeydown(){
 // 获取将要打开的新页面的url
 function getTargetUrl(altrnatingText){
   if (altrnatingText == '')
-    return searchnan[eorder[engine]];
+    return engineList[engine].searchnan;
   else
-    return searchto[eorder[engine]].replace('%s', altrnatingText);
+    return engineList[engine].searchto.replace('%s', altrnatingText);
 }
 
-// 搜索，会打开一个新页面
+// 搜索并打开新页面
 function search(){
   var schbox = document.getElementById('schbox');
   var url = getTargetUrl(schbox.value);
@@ -112,7 +128,7 @@ function search(){
 
 // 被选中的引擎被点击
 function e_middle_click(){
-  window.open(searchnan[eorder[engine]]);
+  window.open(engineList[engine].searchnan);
 }
 
 // 清空输入框的内容
@@ -126,5 +142,9 @@ function clean(){
 function Warma(){
   document.getElementById('schbox').value = 'Warma';
 }
+function warma() {
+  document.getElementById('schbox').value = 'Warma';
+}
+
 // 沃尔玛（误）
 /* 我已经完全爱上Warma啦！*/

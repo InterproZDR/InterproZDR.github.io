@@ -2,7 +2,7 @@
 /* 这里写 index 上所有元素的视觉属性 */
 
 html, #bg{
-  background: url('https://i0.hdslb.com/bfs/album/72d524ee5ebca1370d3023c0ecf4b8e87cdbdd96.jpg');
+  /*background-image: ;: url('https://i0.hdslb.com/bfs/album/72d524ee5ebca1370d3023c0ecf4b8e87cdbdd96.jpg');*/
   background-attachment: fixed;
   background-color: #998;
   background-size: cover;
@@ -10,13 +10,14 @@ html, #bg{
 }
 
 html, #bg, #contain{
-  animation: page-HelloWorld 0.42s;
+  animation: page-HelloWorld 0.8s ease-out;
 }
 
 #e-left, #e-middle, #e-right{
-  transition: color 0.14s;
+  transition: color 0.2s;
   cursor: pointer;
 }
+
 #e-left, #e-right{
   color: white;
 }
@@ -42,38 +43,41 @@ html, #bg, #contain{
 }
 
 #schbox{
-  background-color: rgba(255, 255, 255, 0.4);
-  border-left: 2px rgba(64, 64, 192, 0.2) solid;
-  border-top: 2px rgba(128, 128, 128, 0.2) solid;
-  border-right: none;
-  border-bottom: 2px rgba(128, 128, 128, 0.2) solid;
+  background-color: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(7px);
+  border: none;
   border-spacing: -3px;
   box-shadow: grey 0px 0px 3px;
-  color: black;
+  color: rgba(0, 0, 0, 0.7);
   font-size: 15px;
-  transition: background-color 0.18s, box-shadow 0.2s;
+  transition: background-color 0.3s, color 0.18s, box-shadow 0.26s;
 }
 
 #schbox:hover{
-  background-color: rgba(255, 255, 255, 1);
-  box-shadow: grey 0px 0px 0px;
+  background-color: rgba(255, 255, 255, 0.4);
+  color: black;
 }
 
-#sch-go{
+#schbox:focus{
+  background-color: rgba(255, 255, 255, 0.7);
+  box-shadow: white 0px 0px 3px;
+}
+
+#tool-button{
   color: #EDEDED;
   font-weight: bold;
   background-color: rgb(0, 140, 220);
   border: none;
   cursor: pointer;
   outline: medium;
-  transition: background-color 0.14s;
+  transition: background-color 0.23s;
 }
 
-#sch-go:hover{
+#tool-button:hover{
   background-color: rgb(3, 160, 240);
 }
 
-#sch-go:active{
+#tool-button:active{
   background-color: rgb(0, 120, 185);
 }
 
@@ -81,40 +85,12 @@ html, #bg, #contain{
   border: none;
   color: white;
   font-size: 16px;
-  weight: bold;
+  font-weight: bold;
   outline: medium;
 }
 
-#warma-box-space{
-  border: none;
-  background: none;
-  outline: medium;
-}
-
-#warma{
-  background-color: rgb(3, 160, 240);
-  border: none;
-  color: #EDEDED;
-  cursor: pointer;
-  opacity: 1.0;
-  outline: medium;
-  transition: opacity 0.12s, background-color 0.6s;
-}
-
-#warma:hover{
-  opacity: 0.82;
-}
-
-#warma:active{
-  opacity: 0.64;
-}
 
 /****************************************************/
-
-.en-font{
-  font-family: 'Book Antiqua','UD Digi Kyokasho NP-B';/**/
-  font-style: italic;
-}
 
 @keyframes page-HelloWorld {
   from{

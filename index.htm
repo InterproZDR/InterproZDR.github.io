@@ -1,19 +1,16 @@
-<!--Warma Fans 是 御坂12018号(这是bilibili的用户名)独立开发完成的页面，在github上开源，严禁冒名-->
+<!--Outpro's Frontpage 是[bilibili]__Outpro__开发完成的页面，在github上开源，严禁冒名-->
 <!DOCTYPE html>
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Warma Fans!!!</title>
-    <link href="./css/column.css" type="text/css" rel="stylesheet" />
-    <link href="./css/column_link.css" type="text/css" rel="stylesheet" />
+    <title>Outpro's Frontpage!</title>
     <link href="./css/index.css" type="text/css" rel="stylesheet" />
     <link href="./css/index_visual.css" type="text/css" rel="stylesheet" />
-    <link rel="Shortcut Icon" href="./img/favion.ico" type="image/x-icon" />
+    <link href="./css/tools.css" type="text/css" rel="stylesheet" />
+    <link href="./img/favicon.ico" type="image/x-icon" rel="Shortcut Icon" />
     <script src="./js/index.js"></script>
-    <script src="./js/dialog.js"></script>
-    <script src="./js/column_link.js"></script>
     <script src="./js/EasterEgg.js"></script>
-    <script src="./js/cookie.js"></script>
+    <script src="./js/tools.js"></script>
   </head>
   <body>
     <!--背景-->
@@ -24,85 +21,48 @@
         <!--引擎选择-->
         <div id="e-box">
           <div id="e-chs">
-            <span id="e-left" onclick="lbtn_click();">谷歌</span>
+            <span id="e-left" onmousedown="btn_mousedown(-1);" onmouseup="stopAutoChange();" onmouseout="stopAutoChange();">谷歌</span>
             <span id="e-middle" onclick="e_middle_click();">百度</span>
-            <span id="e-right" onclick="rbtn_click();">必应</span>
+            <span id="e-right" onmousedown="btn_mousedown(1);" onmouseup="stopAutoChange();" onmouseout="stopAutoChange();">必应</span>
           </div>
           <!--输入框和搜索键-->
           <div id="sch">
-            <input type="text" placeholder="Input..." id="schbox" required="required" onkeydown="schboxKeydown();" title="Type in what you want."/>
-            <input type="button" id="sch-go" value=">" onclick="search();" title="Let's go!">
-            <input type="button" id="clean" value="×" onclick="clean();">
-          </div>
-          <!--Warma!!!-->
-          <div id="warma-box">
-            <input type="button" id="warma-box-space" value="" onclick="EasterEgg();" title="Easter egg here!">
-            <input type="button" id="warma" value="沃" onclick="Warma();" title="Let us go to the Bilibili space of Warma!!!">
+            <input type="text" placeholder="Input..." id="schbox" required="required" onkeydown="schboxKeydown();"/>
+            <input type="button" id="tool-button" value="T" onclick="toolButton_click();">
+            <span id="clean" onclick="clean();">×</span>
           </div>
         </div>
       </div>
+      <!--Other things down here.-->
+
+      <!--工具箱外围div-->
+      <div id="toolbox-box" style="display: none;">
+        <!--工具箱主体-->
+        <div id="toolbox">
+          <!--工具箱上方的导航栏-->
+          <div id="toolbox-navigator">
+
+          </div>
+          <!--常用网站页面-->
+          <div id="toolbox-links">
+            <div id="toolbox-user-links">
+
+            </div>
+            <div id="toolbox-friend-links">
+
+            </div>
+          </div>
+          <!--背景设置-->
+          <div id="toolbox-bgconfig">
+            
+          </div>
+          <!--设置页面-->
+          <div id="toolbox-config">
+
+          </div>
+        </div>
+      </div>
+
     </div>
-    <!--左侧栏目-->
-    <div id="column">
-      <div id="warma-recommendation">
-        <div id="warma-user-box" class="not-select">
-          <a href="https://space.bilibili.com/53456" target="_blank" id="warma-username" class="en-font">Warma</a>
-          <a href="https://space.bilibili.com/53456" target="_blank"><div id="warma-avatar" title="注：此动画创意来自[叶落阁]"></div></a>
-        </div>
-        <hr/>
-      </div>
-      <!--链接-->
-      <div id="link-box-box">
-        <div id="link-box">
-          <div class="link-loaf">
-            <a href="https://space.bilibili.com/53456" target="_blank" id="link-warma1">Warma的b站空间</a>
-          </div>
-          <div class="link-loaf">
-            <a href="https://weibo.com/warmawarma" target="_blank" id="link-warma2">Warma的微博</a>
-          </div>
-          <div class="link-loaf">
-            <a href="https://github.com/InterproZDR/InterproZDR.github.io" target="_blank">本项目的github库</a>
-          </div>
-          <!--自定义部分-->
-          <!--样例-->
-          <!--<div class="link-loaf" id="customizeLink-0">
-            <a href="https://github.com/InterproZDR/InterproZDR.github.io" id="customizeLink-0-name" target="_blank">本项目的github库2</a>
-            <span class="link-loaf-edit" id="customizeLink-0-edit" onclick="editLink_click(0);"></span>
-          </div>-->
-          <!--添加链接-->
-          <div id="link-loaf-add" class="not-select" onclick="addLink_click();">+</div>
-        </div>
-      </div>
-      <!--底部文字-->
-      <div id="bottom-box">
-        <hr/>
-        <span id="bottom">
-          辣个爱自搜的女人会来吗？
-        </span>
-      </div>
-    </div>
-    <!--编辑链接的对话框-->
-    <div id="dialog" style="display: none;">
-      <div id="dialog-delete" class="not-select" onclick="dialogDeleteButton_click();"></div>
-      <div id="dialog-title-box">
-        <div id="dialog-title" class="not-select">编辑链接</div>
-      </div>
-      <div id="dialog-content-box">
-        <div class="dialog-input-box">
-          链接名称：
-          <input type="text" id="dialog-linkname-input" class="input-box" placeholder="链接名称" onkeydown="dialogInputbox_onKeyDown();"/>
-        </div>
-        <div class="dialog-input-box">
-          链接URL：
-          <input type="text" id="dialog-linkurl-input" class="input-box" placeholder="链接URL" onkeydown="dialogInputbox_onKeyDown();"/>
-        </div>
-      </div>
-      <div id="dialog-button-box">
-        <input type="button" id="dialog-sure-button" value="Sure" onclick="dialogSureButton_click()"/>
-        <input type="button" id="dialog-cancel-button" value="Cancel" onclick="closeDialog();" />
-      </div>
-    </div>
-    <link href="./css/dialog.css" type="text/css" rel="stylesheet">
-    <!--Dialog ends-->
   </body>
 </html>
