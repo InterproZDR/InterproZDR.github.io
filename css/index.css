@@ -12,10 +12,11 @@ html, body{
 a{
   text-decoration: none;
   transition: color 0.3s;
+  color: rgb(225, 164, 180);
 }
 
 a:hover{
-  text-decoration: underline;
+  color: rgb(250, 200, 200);
 }
 
 ::-webkit-scrollbar{
@@ -54,11 +55,9 @@ a:hover{
 #search{
   margin: 12% 11% 12% 11%;
   z-index: 99;
-}
-
-#e-box{
-  margin: auto 10% auto 10%;
-  padding: 4% 5% 3.31% 5%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 #e-chs{
@@ -124,7 +123,7 @@ a:hover{
 }
 
 #bottomBox{
-  bottom: 0px;
+  bottom: 3px;
   position: fixed;
   width: 100vw;
 }
@@ -132,14 +131,7 @@ a:hover{
 #bottom{
   text-align: center;
   width: 100vw;
-}
-
-#bottom>a{
-  color: wheat;
-}
-
-#bottom>a:hover{
-  color: white;
+  font-size: 14px;
 }
 
 /***************************************/
@@ -164,6 +156,12 @@ a:hover{
   position: fixed;
   background-repeat: no-repeat;
   background-size: cover;
+}
+
+@media screen and (max-width: 1060px){
+  #schbox{
+    width: 490px;
+  }
 }
 
 /* 我已经完全爱上Warma啦！*/
