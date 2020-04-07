@@ -35,7 +35,7 @@ window.onload = function () {
     }
     sb.onblur = function () {
       this.style.backgroundColor = bg;
-      document.getElementById('config-button').style.boxShadow = "";
+      document.getElementById('clean-button').style.boxShadow = "";
     }
     document.addEventListener('DOMMouseScroll', window_onmousewhell);
     /*document.getElementById('schbox').style.height = "43px";*/
@@ -52,6 +52,11 @@ window.onload = function () {
     document.getElementById('clean-line').style.width = "488px";
   else
     document.getElementById('clean-line').style.width = "0px";
+  
+  // TODO：在9.18和7.7时将页面调整成黑白
+  var date = new Date();
+  if (date.getMonth() + 1 == 9 && date.getDate() == 18 || date.getMonth() + 1 == 7 && date.getDate() == 7)
+    document.getElementById('contain').style = "filter: grascale(100%);";
 }
 
 // 检测鼠标滚轮事件

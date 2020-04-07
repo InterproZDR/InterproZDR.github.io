@@ -86,14 +86,16 @@ a:hover{
 }
 
 #schbox{
+  animation: schbox-helloWorld 0.6s ease-out;
   border-radius: 0%;
   width: 490px;
+  /*width: 170px;*/
   height: 42px;
   z-index: 10;
   outline: medium;
 }
 
-#config-button, #search-button{
+#clean-button, #search-button{
   height: 44px;
   width: 40px;
   font-size: 16px;
@@ -158,9 +160,21 @@ a:hover{
   background-size: cover;
 }
 
-@media screen and (max-width: 1060px){
-  #schbox{
-    width: 490px;
+@keyframes schbox-helloWorld{
+  from{
+    width: 0px;
+  }
+  to{
+    width: 488px;
+  }
+}
+
+@keyframes sadness{
+  from{
+    filter: grascale(0%);
+  }
+  to{
+    filter: grascale(100%);
   }
 }
 

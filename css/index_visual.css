@@ -72,7 +72,7 @@ input{
   box-shadow: rgb(0, 140, 220) 0px 1px 3px, rgb(0, 140, 220) 0px -1px 3px;
 }
 
-#config-button, #search-button{
+#clean-button, #search-button{
   color: #EDEDED;
   font-weight: bold;
   background-color: rgb(0, 140, 220);
@@ -82,15 +82,15 @@ input{
   transition: background-color 0.23s, box-shadow 0.26s;
 }
 
-#config-button:hover, #search-button:hover{
+#clean-button:hover, #search-button:hover{
   background-color: rgb(3, 160, 240);
 }
 
-#config-button:active, #search-button:active{
+#clean-button:active, #search-button:active{
   background-color: rgb(0, 120, 185);
 }
 
-#config-button{
+#clean-button{
   border-top-left-radius: 50%;
   border-bottom-left-radius: 50%;
 }

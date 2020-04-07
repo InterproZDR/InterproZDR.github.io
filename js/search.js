@@ -68,17 +68,17 @@ function schbox_onkeypress() {
 }
 function schbox_onmouseover() {
   if (document.activeElement.id != 'schbox')
-    document.getElementById('config-button').style.boxShadow = "rgba(0, 139, 220, 0.616)0px 0px 4px";
+    document.getElementById('clean-button').style.boxShadow = "rgba(0, 139, 220, 0.616)0px 0px 4px";
 }
 function schbox_onmouseout() {
   if (document.activeElement.id != 'schbox')
-    document.getElementById('config-button').style.boxShadow = "";
+    document.getElementById('clean-button').style.boxShadow = "";
 }
 function schbox_onclick() {
-  document.getElementById('config-button').style.boxShadow = "rgb(0, 140, 220) 0px 1px 3px, rgb(0, 140, 220) 0px -1px 3px";
+  document.getElementById('clean-button').style.boxShadow = "rgb(0, 140, 220) 0px 1px 3px, rgb(0, 140, 220) 0px -1px 3px";
 }
 function schbox_onblur() {
-  document.getElementById('config-button').style.boxShadow = "";
+  document.getElementById('clean-button').style.boxShadow = "";
 }
 
 // 获取将要打开的新页面的url
@@ -107,17 +107,32 @@ function e_middle_click() {
 
 function clean_line_click() {
   var sb = document.getElementById('schbox');
-  if (config['cleanRecordNeedy'] == 'true' && sb.value != '')
+  if (sb.value != '')
     cleanRecord = document.getElementById('schbox').value;
   sb.value = "";
   document.getElementById('clean-line').style.width = "0px";
   document.getElementById('schbox').focus();
+  schbox_onclick();
   if (navigator.userAgent.indexOf('Firefox')) {
     document.getElementById('schbox').style.background = "";
   }
 }
 
-// 沃玛！！！
+// config-button的点击事件
+function cleanButton_click() {
+  var sb = document.getElementById('schbox');
+  if (cleanRecord != "" && sb.value == "") {
+    sb.value = cleanRecord;
+    sb.focus();
+    schbox_onclick();
+    if (navigator.userAgent.indexOf('Firefox')) {
+      document.getElementById('schbox').style.background = "";
+    }
+    cleanRecord = "";
+    document.getElementById('clean-line').style.width = "488px";
+  }
+}
+
 function Warma() {
   document.getElementById('schbox').value = 'Warma';
 }
