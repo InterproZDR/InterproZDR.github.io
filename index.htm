@@ -7,62 +7,66 @@
     <link href="./css/index.css" type="text/css" rel="stylesheet" />
     <link href="./css/index_visual.css" type="text/css" rel="stylesheet" />
     <link href="./css/tools.css" type="text/css" rel="stylesheet" />
+    <link href="./css/window.css" type="text/css" rel="stylesheet" />
     <link href="./img/favicon.ico" type="image/x-icon" rel="Shortcut Icon" />
     <script src="./js/index.js"></script>
     <script src="./js/EasterEgg.js"></script>
     <script src="./js/tools.js"></script>
+    <script src="./js/search.js"></script>
   </head>
   <body>
     <!--背景-->
     <div id="bg" class="bg"></div>
+    <div id="bg-cover" class="bg"></div>
     <div id="contain">
       <!--搜索部分-->
       <div id="search" class="not-select">
-        <!--引擎选择-->
         <div id="e-box">
+          <!--引擎选择-->
           <div id="e-chs">
-            <span id="e-left" onmousedown="btn_mousedown(-1);" onmouseup="stopAutoChange();" onmouseout="stopAutoChange();">谷歌</span>
+            <span id="e-left" onmousedown="changeEngine(-1);">谷歌</span>
             <span id="e-middle" onclick="e_middle_click();">百度</span>
-            <span id="e-right" onmousedown="btn_mousedown(1);" onmouseup="stopAutoChange();" onmouseout="stopAutoChange();">必应</span>
+            <span id="e-right" onmousedown="changeEngine(1);">必应</span>
           </div>
           <!--输入框和搜索键-->
           <div id="sch">
-            <input type="text" placeholder="Input..." id="schbox" required="required" onkeydown="schboxKeydown();"/>
-            <input type="button" id="tool-button" value="T" onclick="toolButton_click();">
-            <span id="clean" onclick="clean();">×</span>
+            <input type="button" id="config-button" value="<" title="点这里打开设置" onclick="configButton_click();" />
+            <input type="text" placeholder="Input..." id="schbox" required="required" onkeydown="schbox_onkeydown();" onmouseover="schbox_onmouseover();" onmouseout="schbox_onmouseout();" onclick="schbox_onclick();" onblur="schbox_onblur();" onkeyup="schbox_onkeypress();"/>
+            <input type="button" id="search-button" value=">" title="点这里搜索" onclick="search();" />
           </div>
+          <div id="clean-line-box">
+            <div id="clean-line-clickeder" title="biu!你的内容被删掉了" onclick="clean_line_click();">
+              <i id="clean-line"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--底部-->
+      <div id="bottomBox" class="not-select">
+        <div id="bottom">
+          <a href="javascript: void(0);">开始</a>
         </div>
       </div>
       <!--Other things down here.-->
-
-      <!--工具箱外围div-->
-      <div id="toolbox-box" style="display: none;">
-        <!--工具箱主体-->
-        <div id="toolbox">
-          <!--工具箱上方的导航栏-->
-          <div id="toolbox-navigator">
-
+      <div class="window-box" style="display: none;"onclick="this.setAttribute('style', 'display:none;');// temporary...">
+        <!--V&C's window-->
+        <div id="VandC" style="display: none;" class="window" draggable="true">
+          <div class="window-title">
+            Introduction
+            <span class="window-closer">
+              ×
+            </span>
           </div>
-          <!--常用网站页面-->
-          <div id="toolbox-links">
-            <div id="toolbox-user-links">
-
-            </div>
-            <div id="toolbox-friend-links">
-
-            </div>
-          </div>
-          <!--背景设置-->
-          <div id="toolbox-bgconfig">
-            
-          </div>
-          <!--设置页面-->
-          <div id="toolbox-config">
-
+          <div class="window-content">
+            所有东西由[bilibili]__Outpro__ 一人开发，部分内容从<a href="a.maorx.cn/" target="_blank">毛若昕开发的主页</a>上学习得来。
           </div>
         </div>
-      </div>
+        <!--设置界面-->
+        <div id="config" style="display: none;" class="window" draggable="true">
 
+        </div>
+      </div>
+      <!----------->
     </div>
   </body>
 </html>

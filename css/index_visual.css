@@ -1,16 +1,16 @@
 
 /* 这里写 index 上所有元素的视觉属性 */
 
-html, #bg{
+.bg{
   /*background-image: ;: url('https://i0.hdslb.com/bfs/album/72d524ee5ebca1370d3023c0ecf4b8e87cdbdd96.jpg');*/
   background-attachment: fixed;
-  background-color: #998;
   background-size: cover;
+  background-position: center;
   background-repeat: no-repeat;
 }
 
-html, #bg, #contain{
-  animation: page-HelloWorld 0.8s ease-out;
+input{
+  text-align: center;
 }
 
 #e-left, #e-middle, #e-right{
@@ -43,61 +43,80 @@ html, #bg, #contain{
 }
 
 #schbox{
-  background-color: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(7px);
+  background-color: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
   border: none;
-  border-spacing: -3px;
-  box-shadow: grey 0px 0px 3px;
-  color: rgba(0, 0, 0, 0.7);
-  font-size: 15px;
+  box-shadow: rgb(64, 64, 64) 0px 0px 0px;
+  color: white;
+  font-size: 16px;
   transition: background-color 0.3s, color 0.18s, box-shadow 0.26s;
 }
 
 #schbox:hover{
   background-color: rgba(255, 255, 255, 0.4);
+  box-shadow: grey 0px 0px 4px;
   color: black;
 }
 
-#schbox:focus{
-  background-color: rgba(255, 255, 255, 0.7);
-  box-shadow: white 0px 0px 3px;
+#schbox:hover ~ #search-button{
+  box-shadow: rgba(0, 139, 220, 0.616)0px 0px 4px;
 }
 
-#tool-button{
+#schbox:focus{
+  background-color: wheat;
+  box-shadow: wheat 0px 1px 3px, wheat 0px -1px 3px;
+  color: black;
+}
+
+#schbox:focus ~ #search-button{
+  box-shadow: rgb(0, 140, 220) 0px 1px 3px, rgb(0, 140, 220) 0px -1px 3px;
+}
+
+#config-button, #search-button{
   color: #EDEDED;
   font-weight: bold;
   background-color: rgb(0, 140, 220);
   border: none;
   cursor: pointer;
   outline: medium;
-  transition: background-color 0.23s;
+  transition: background-color 0.23s, box-shadow 0.26s;
 }
 
-#tool-button:hover{
+#config-button:hover, #search-button:hover{
   background-color: rgb(3, 160, 240);
 }
 
-#tool-button:active{
+#config-button:active, #search-button:active{
   background-color: rgb(0, 120, 185);
 }
 
-#clean{
-  border: none;
-  color: white;
-  font-size: 16px;
-  font-weight: bold;
-  outline: medium;
+#config-button{
+  border-top-left-radius: 50%;
+  border-bottom-left-radius: 50%;
 }
 
+#search-button{
+  border-top-right-radius: 50%;
+  border-bottom-right-radius: 50%;
+}
 
+#clean-line-clickeder{
+  border-left: 3px solid wheat;
+  border-right: 3px solid wheat;
+}
+
+#clean-line{
+  background: wheat;
+}
 /****************************************************/
 
-@keyframes page-HelloWorld {
+@keyframes schbox-HelloWorld {
   from{
-    opacity: 0%;
+    width: 0px;
   }
   to{
     opacity: 100%;
   }
 }
+
 /* 我已经完全爱上Warma啦！*/

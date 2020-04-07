@@ -11,6 +11,7 @@ html, body{
 
 a{
   text-decoration: none;
+  transition: color 0.3s;
 }
 
 a:hover{
@@ -35,13 +36,11 @@ a:hover{
 
 #bg{
   z-index: -1;
-  left: 0px;
-  top: 0px;
-  height: 100%;
-  width: 100%;
-  position: absolute;
-  background-repeat: no-repeat;
-  background-size: cover;
+  background-color: #998;
+}
+
+#bg-cover{
+  z-index: -11;
 }
 
 #contain{
@@ -84,54 +83,63 @@ a:hover{
 
 #sch{
   display: flex;
+  justify-content: center;
 }
 
 #schbox{
-  width: 95%;
-  height: 40px;
-  z-index: 1;
+  border-radius: 0%;
+  width: 490px;
+  height: 42px;
+  z-index: 10;
   outline: medium;
-  text-indent: 20px;
-  border-radius: 24px;
-  border-top-right-radius: 0px;
-  border-bottom-right-radius: 0px;
 }
 
-#schbox:valid ~ #clean{
-  align-items: center;
-  background-color: rgb(150, 150, 150);
-  color: white;
-  display: flex;
-  justify-content: center;
-  opacity: 0.6;
-}
-
-#schbox:valid{
-  width: calc(100% - 40px);
-}
-
-/*解决schbox在Firefox上输入后大小变化的问题*/
-#schbox:-moz-ui-valid{
-  width: calc(100% - 38px);
-}
-
-#tool-button{
-  padding: 13px;
+#config-button, #search-button{
+  height: 44px;
+  width: 40px;
   font-size: 16px;
   border-top-left-radius: 0px;
   border-bottom-left-radius: 0px;
 }
 
-#clean{
-  border-radius: 50%;
+#clean-line-box{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 14px;
+}
+
+#clean-line-clickeder{
+  height: 8px;
   cursor: pointer;
-  display: none;
-  height: 20px;
-  margin-left: -60px;
-  margin-top: 12px;
-  position: relative;
-  width: 20px;
-  z-index: 999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#clean-line{
+  height: 2px;
+  width: 488px;
+  transition: width 0.32s;
+}
+
+#bottomBox{
+  bottom: 0px;
+  position: fixed;
+  width: 100vw;
+}
+
+#bottom{
+  text-align: center;
+  width: 100vw;
+}
+
+#bottom>a{
+  color: wheat;
+}
+
+#bottom>a:hover{
+  color: white;
 }
 
 /***************************************/
@@ -143,4 +151,19 @@ a:hover{
   -khtml-user-select: none;
   user-select: none;
 }
+
+.debugger{
+  border: 1px solid red;
+}
+
+.bg{
+  left: 0px;
+  top: 0px;
+  height: 100%;
+  width: 100%;
+  position: fixed;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
 /* 我已经完全爱上Warma啦！*/
