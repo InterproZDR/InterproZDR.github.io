@@ -37,11 +37,11 @@ a:hover{
 
 #bg{
   z-index: -1;
-  background-color: white;
+  background-color: #998;
 }
 
-#bg-black-cover{
-  background: radial-gradient(rgba(0, 0, 0, 0), rgba(16, 16, 16, 0.9));
+#bg-cover{
+  z-index: -11;
 }
 
 #contain{
@@ -53,8 +53,7 @@ a:hover{
 }
 
 #search{
-  position: relative;
-  top: 156px;
+  margin: 12% 11% 12% 11%;
   z-index: 99;
   display: flex;
   justify-content: center;
@@ -66,13 +65,15 @@ a:hover{
   display: flex;
   font-family: "Microsoft Yahei";
   justify-content: center;
-  overflow: hidden;
-  top: 135px;
-  position: relative;
 }
 
 #e-left, #e-right{
   font-size: 21px;
+  transition: font-size 0.4s;
+}
+
+#e-left:hover, #e-right:hover{
+  font-size: 25px;
 }
 
 #e-middle{
@@ -88,6 +89,7 @@ a:hover{
   animation: schbox-helloWorld 0.6s ease-out;
   border-radius: 0%;
   width: 490px;
+  /*width: 170px;*/
   height: 42px;
   z-index: 10;
   outline: medium;
@@ -118,8 +120,20 @@ a:hover{
 
 #clean-line{
   height: 2px;
-  width: 570px;
-  transition: width 0.26s;
+  width: 488px;
+  transition: width 0.32s;
+}
+
+#bottomBox{
+  bottom: 3px;
+  position: fixed;
+  width: 100vw;
+}
+
+#bottom{
+  text-align: center;
+  width: 100vw;
+  font-size: 14px;
 }
 
 /***************************************/

@@ -21,7 +21,6 @@
   padding: 30px 20px 30px 20px;
   width: 650px;
   height: 400px;
-  overflow: hidden;
 }
   
 .window-title{
@@ -38,9 +37,15 @@
   user-select: none;
 }
 
-.window-closer::before{
-    content: "";
-    transform: scale();
+.window-closer{
+    position: relative;
+    top: 0px;
+    right: 0px;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    -khtml-user-select: none;
+    user-select: none;
 }
 
 .window-closer:hover{

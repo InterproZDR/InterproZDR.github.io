@@ -22,7 +22,6 @@ var engineList = [null,
   new Engine('百度', 'https://www.baidu.com/s?wd=%s', 'https://www.baidu.com/'),
   new Engine('必应', 'https://cn.bing.com/search?q=%s', 'https://cn.bing.com/'),
   new Engine('知乎', 'https://www.zhihu.com/search?type=content&q=%s', 'https://www.zhihu.com/'),
-  new Engine('A站', 'https://www.acfun.cn/search?keyword=%s', 'https://www.acfun.cn/'),
   new Engine('B站', 'https://search.bilibili.com/all?keyword=%s&from_source=banner_search', 'https://www.bilibili.com'),
   new Engine('萌百', 'https://zh.moegirl.org/index.php?search=%s', 'https://zh.moegirl.org/Mainpage'),
   new Engine('翻译', 'https://translate.google.cn/#view=home&op=translate&sl=auto&tl=zh-CN&text=%s', 'https://translate.google.cn/')];
@@ -50,8 +49,6 @@ function changeEngine(eChangeDirection) {
   document.getElementById('e-left').innerHTML = engineList[le].name;
   document.getElementById('e-middle').innerHTML = engineList[mid].name;
   document.getElementById('e-right').innerHTML = engineList[ri].name;
-  document.getElementById('schbox').focus();
-  schbox_onclick();
 }
 
 // 主要处理schbox按下回车键
@@ -65,7 +62,7 @@ function schbox_onkeydown() {
 }
 function schbox_onkeypress() {
   if (document.getElementById('schbox').value != "")
-    document.getElementById('clean-line').style.width = "570px";
+    document.getElementById('clean-line').style.width = "488px";
   else
     document.getElementById('clean-line').style.width = "0px";
 }
@@ -146,3 +143,4 @@ function warma() {
 
 // 沃尔玛（误）
 /* 我已经完全爱上Warma啦！*/
+  
