@@ -4,7 +4,6 @@
 // configNormal是当页面设置在localStorage中不存在或异常时的默认设置
 const configNormal = {
     'bgPicUrl': 'https://i.loli.net/2020/03/29/E2AThbHGyFztOrQ.jpg',  // 背景图的url
-    'arrowKeySwitchEngine': 'true',  // 方向键切换引擎
     'theme': 'normal-light'     // 主题
 };
 // config是页面上的设置
@@ -66,7 +65,7 @@ function restituteConfig() {
 
 // TODO: 显示工具窗口
 function showToolbox() {
-
+    
 }
 
 // TODO: 隐藏工具窗口

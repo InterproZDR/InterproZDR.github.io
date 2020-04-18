@@ -3,32 +3,34 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Outpro's Frontpage!</title>
+    <title>弹跳板主页</title>
+    <!--如果哪一天娘化了，可以取名叫“跳板娘”，别名“振子娘”（<del>贞子娘</del>）-->
     <link href="./css/index.css" type="text/css" rel="stylesheet" />
     <link href="./css/index_visual.css" type="text/css" rel="stylesheet" />
     <link href="./css/tools.css" type="text/css" rel="stylesheet" />
+    <link href="./css/favorites.css" type="text/css" rel="stylesheet" />
     <link href="./css/window.css" type="text/css" rel="stylesheet" />
     <link href="./img/favicon.ico" type="image/x-icon" rel="Shortcut Icon" />
     <script src="./js/index.js"></script>
     <script src="./js/EasterEgg.js"></script>
     <script src="./js/tools.js"></script>
     <script src="./js/search.js"></script>
+    <script src="./js/favorites.js"></script>
   </head>
   <body>
-    <!--背景-->
+    <div id="bg-black-cover" class="bg"></div><!--兹是学习了a.maorx.cn-->
     <div id="bg" class="bg"></div>
     <div id="bg-cover" class="bg"></div>
     <div id="contain">
-      <!--搜索部分-->
+      <!--引擎选择-->
+      <div id="e-chs" class="not-select">
+        <!--TODO: 把这里的东西改成onload-->
+        <span id="e-left" class="underline" onmousedown="changeEngine(-1);">谷歌</span>
+        <span id="e-middle" class="underline" onclick="e_middle_click();">百度</span>
+        <span id="e-right" class="underline" onmousedown="changeEngine(1);">必应</span>
+      </div>
       <div id="search" class="not-select">
-        <div id="e-box">
-          <!--引擎选择-->
-          <div id="e-chs">
-            <span id="e-left" onmousedown="changeEngine(-1);">谷歌</span>
-            <span id="e-middle" onclick="e_middle_click();">百度</span>
-            <span id="e-right" onmousedown="changeEngine(1);">必应</span>
-          </div>
-          <!--输入框和搜索键-->
+        <div>
           <div id="sch">
             <input type="button" id="clean-button" value="<" title="点这里恢复用清除线清掉的内容" onclick="cleanButton_click();" />
             <input type="text" placeholder="Input..." id="schbox" required="required" onkeydown="schbox_onkeydown();" onmouseover="schbox_onmouseover();" onmouseout="schbox_onmouseout();" onclick="schbox_onclick();" onblur="schbox_onblur();" onkeyup="schbox_onkeypress();"/>
@@ -41,34 +43,38 @@
           </div>
         </div>
       </div>
-      <!--底部-->
-      <div id="bottomBox" class="not-select">
-        <div id="bottom">
-          <a href="javascript: alert('Oops, nothing here!');">开始</a>
+      <!--收藏夹-->
+      <div id="favorites-body">
+        <div id="favorites" onload="favoritesInit();">
+          
         </div>
       </div>
-      <!--Other things down here.-->
-      <div class="window-box" style="display: ;"onclick="this.setAttribute('style', 'display:none;');// temporary...">
-        <!--V&C's window-->
-        <div id="VandC" style="display: ;" class="window" draggable="true">
-          <!--<div class="window-title">
-            Introduction
-            <span class="window-closer">
-              ×
-            </span>
-          </div>
-          <div class="window-content">
-            所有东西由[bilibili]__Outpro__ 一人开发，部分内容从<a href="a.maorx.cn/" target="_blank">毛若昕开发的主页</a>上学习得来。
-          </div>-->
-          <h1>不要做主页了，努力抓好文化课！努力上复旦！</h1>
-          <h2>！！！心无旁骛！！！</h2>
-        </div>
-        <!--设置界面-->
-        <div id="config" style="display: none;" class="window" draggable="true">
+      <!--底部收藏栏，类似于手机桌面底部的应用列表-->
+      <div id="most-used-link-body">
+        <div id="most-used-link">
 
         </div>
       </div>
       <!----------->
+    </div>
+    <!--Other things down here.-->
+    <div class="window-box" style="display: none;"onclick="this.setAttribute('style', 'display:none;');// temporary...">
+      <!--V&C's window-->
+      <div id="VandC" style="display: none; text-align: center;" class="window" draggable="true">
+        <!--<div class="window-title">
+          Introduction
+          <span class="window-closer">
+            ×
+          </span>
+        </div>
+        <div class="window-content">
+          所有东西由[bilibili]__Outpro__ 一人开发，部分内容从<a href="a.maorx.cn/" target="_blank">毛若昕开发的主页</a>上学习得来。
+        </div>-->
+      </div>
+      <!--设置界面-->
+      <div id="config" style="display: none;" class="window" draggable="true">
+
+      </div>
     </div>
   </body>
 </html>
