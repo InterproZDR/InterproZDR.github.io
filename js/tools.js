@@ -4,9 +4,7 @@
 // configNormal是当页面设置在localStorage中不存在或异常时的默认设置
 const configNormal = {
     'bgPicUrl': 'https://i.loli.net/2020/03/29/E2AThbHGyFztOrQ.jpg',  // 背景图的url
-    'arrowKeySwitchEngine': 'true',  // 方向键切换引擎
-    'theme': 'normal-light',    // 主题
-    "cleanRecordNeedy": "true"   // 按下清除键后记录上一次输入的内容，且当cleanRecord不为""时，按下config-button恢复之，且此时不打开工具栏
+    'theme': 'normal-light'     // 主题
 };
 // config是页面上的设置
 // config是一个对象，其中的键和值都为string.
@@ -67,7 +65,7 @@ function restituteConfig() {
 
 // TODO: 显示工具窗口
 function showToolbox() {
-
+    
 }
 
 // TODO: 隐藏工具窗口
@@ -75,18 +73,4 @@ function hideToolbox() {
     
 }
 
-// config-button的点击事件
-function configButton_click() {
-    var sb = document.getElementById('schbox');
-    if (config['cleanRecordNeedy'] == 'true' && cleanRecord != "" && sb.value == "") {
-        sb.value = cleanRecord;
-        sb.focus();
-        if (navigator.userAgent.indexOf('Firefox')) {
-          document.getElementById('schbox').style.background = "";
-        }
-        cleanRecord = "";
-        document.getElementById('clean-line').style.width = "488px";
-        return;
-    }
-    showToolbox();
-}
+// 沃玛！！！

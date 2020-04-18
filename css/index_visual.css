@@ -1,14 +1,6 @@
 
 /* 这里写 index 上所有元素的视觉属性 */
 
-.bg{
-  /*background-image: ;: url('https://i0.hdslb.com/bfs/album/72d524ee5ebca1370d3023c0ecf4b8e87cdbdd96.jpg');*/
-  background-attachment: fixed;
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-}
-
 input{
   text-align: center;
 }
@@ -22,24 +14,12 @@ input{
   color: white;
 }
 
-#e-left:active, #e-right:active{
-  color: #E7E7E7;
-}
-
-#e-middle, #hitokoto{
-  color: #8CF;
-}
-
-#e-middle:hover{
-  color: #BCE;
+#e-middle{
+  color: white;
 }
 
 #e-middle:active{
-  color: #8BF;
-}
-
-#e-left:active, #e-right:active{
-  color: #E7E7E7;
+  color: #DDD;
 }
 
 #schbox{
@@ -53,8 +33,9 @@ input{
 }
 
 #schbox:hover{
-  background-color: rgba(255, 255, 255, 0.4);
-  box-shadow: grey 0px 0px 4px;
+  /*background-color: rgba(255, 255, 255, 0.4);*/
+  background-color: white;
+  box-shadow: white 0px 0px 4px;
   color: black;
 }
 
@@ -63,8 +44,8 @@ input{
 }
 
 #schbox:focus{
-  background-color: wheat;
-  box-shadow: wheat 0px 1px 3px, wheat 0px -1px 3px;
+  background-color: white;
+  box-shadow: white 0px 1px 3px, white 0px -1px 3px;
   color: black;
 }
 
@@ -72,7 +53,20 @@ input{
   box-shadow: rgb(0, 140, 220) 0px 1px 3px, rgb(0, 140, 220) 0px -1px 3px;
 }
 
-#config-button, #search-button{
+#schbox::-webkit-input-placeholder{
+  color: white;
+}
+#schbox::-moz-placeholder{
+  color: white;
+}
+#schbox:-moz-placeholder{
+  color: white;
+}
+#schbox:-ms-input-placeholder{
+  color: white;
+}
+
+#clean-button, #search-button{
   color: #EDEDED;
   font-weight: bold;
   background-color: rgb(0, 140, 220);
@@ -82,15 +76,15 @@ input{
   transition: background-color 0.23s, box-shadow 0.26s;
 }
 
-#config-button:hover, #search-button:hover{
+#clean-button:hover, #search-button:hover{
   background-color: rgb(3, 160, 240);
 }
 
-#config-button:active, #search-button:active{
+#clean-button:active, #search-button:active{
   background-color: rgb(0, 120, 185);
 }
 
-#config-button{
+#clean-button{
   border-top-left-radius: 50%;
   border-bottom-left-radius: 50%;
 }
@@ -100,14 +94,32 @@ input{
   border-bottom-right-radius: 50%;
 }
 
-#clean-line-clickeder{
-  border-left: 3px solid wheat;
-  border-right: 3px solid wheat;
+#clean-line{
+  background: white;
+}
+/****************************************************/
+
+.bg{
+  background-attachment: fixed;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
-#clean-line{
-  background: wheat;
+a::after, .underline::after{
+  content: "";
+  border: 1px solid orange;
+  display: block;
+  transform: scale3d(0, 1, 1);
+  transform-origin: 50% 0%;
+  transition: transform 0.26s;
+  width: 100%;
 }
+
+a:hover::after, .underline:hover::after{
+  transform: scale3d(1, 1, 1);
+}
+
 /****************************************************/
 
 @keyframes schbox-HelloWorld {

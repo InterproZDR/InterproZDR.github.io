@@ -22,6 +22,7 @@ var engineList = [null,
   new Engine('百度', 'https://www.baidu.com/s?wd=%s', 'https://www.baidu.com/'),
   new Engine('必应', 'https://cn.bing.com/search?q=%s', 'https://cn.bing.com/'),
   new Engine('知乎', 'https://www.zhihu.com/search?type=content&q=%s', 'https://www.zhihu.com/'),
+  new Engine('A站', 'https://www.acfun.cn/search?keyword=%s', 'https://www.acfun.cn/'),
   new Engine('B站', 'https://search.bilibili.com/all?keyword=%s&from_source=banner_search', 'https://www.bilibili.com'),
   new Engine('萌百', 'https://zh.moegirl.org/index.php?search=%s', 'https://zh.moegirl.org/Mainpage'),
   new Engine('翻译', 'https://translate.google.cn/#view=home&op=translate&sl=auto&tl=zh-CN&text=%s', 'https://translate.google.cn/')];
@@ -49,6 +50,8 @@ function changeEngine(eChangeDirection) {
   document.getElementById('e-left').innerHTML = engineList[le].name;
   document.getElementById('e-middle').innerHTML = engineList[mid].name;
   document.getElementById('e-right').innerHTML = engineList[ri].name;
+  document.getElementById('schbox').focus();
+  schbox_onclick();
 }
 
 // 主要处理schbox按下回车键
@@ -62,23 +65,23 @@ function schbox_onkeydown() {
 }
 function schbox_onkeypress() {
   if (document.getElementById('schbox').value != "")
-    document.getElementById('clean-line').style.width = "488px";
+    document.getElementById('clean-line').style.width = "570px";
   else
     document.getElementById('clean-line').style.width = "0px";
 }
 function schbox_onmouseover() {
   if (document.activeElement.id != 'schbox')
-    document.getElementById('config-button').style.boxShadow = "rgba(0, 139, 220, 0.616)0px 0px 4px";
+    document.getElementById('clean-button').style.boxShadow = "rgba(0, 139, 220, 0.616)0px 0px 4px";
 }
 function schbox_onmouseout() {
   if (document.activeElement.id != 'schbox')
-    document.getElementById('config-button').style.boxShadow = "";
+    document.getElementById('clean-button').style.boxShadow = "";
 }
 function schbox_onclick() {
-  document.getElementById('config-button').style.boxShadow = "rgb(0, 140, 220) 0px 1px 3px, rgb(0, 140, 220) 0px -1px 3px";
+  document.getElementById('clean-button').style.boxShadow = "rgb(0, 140, 220) 0px 1px 3px, rgb(0, 140, 220) 0px -1px 3px";
 }
 function schbox_onblur() {
-  document.getElementById('config-button').style.boxShadow = "";
+  document.getElementById('clean-button').style.boxShadow = "";
 }
 
 // 获取将要打开的新页面的url
@@ -107,17 +110,32 @@ function e_middle_click() {
 
 function clean_line_click() {
   var sb = document.getElementById('schbox');
-  if (config['cleanRecordNeedy'] == 'true' && sb.value != '')
+  if (sb.value != '')
     cleanRecord = document.getElementById('schbox').value;
   sb.value = "";
   document.getElementById('clean-line').style.width = "0px";
   document.getElementById('schbox').focus();
+  schbox_onclick();
   if (navigator.userAgent.indexOf('Firefox')) {
     document.getElementById('schbox').style.background = "";
   }
 }
 
-// 沃玛！！！
+// config-button的点击事件
+function cleanButton_click() {
+  var sb = document.getElementById('schbox');
+  if (cleanRecord != "" && sb.value == "") {
+    sb.value = cleanRecord;
+    sb.focus();
+    schbox_onclick();
+    if (navigator.userAgent.indexOf('Firefox')) {
+      document.getElementById('schbox').style.background = "";
+    }
+    cleanRecord = "";
+    document.getElementById('clean-line').style.width = "488px";
+  }
+}
+
 function Warma() {
   document.getElementById('schbox').value = 'Warma';
 }
@@ -128,4 +146,3 @@ function warma() {
 
 // 沃尔玛（误）
 /* 我已经完全爱上Warma啦！*/
-  
