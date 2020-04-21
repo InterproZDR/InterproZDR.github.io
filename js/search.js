@@ -135,14 +135,3 @@ function cleanButton_click() {
     document.getElementById('clean-line').style.width = "488px";
   }
 }
-
-function Warma() {
-  document.getElementById('schbox').value = 'Warma';
-}
-function warma() {
-  document.getElementById('schbox').value = '忆雨';
-  console.log('割一心埋于浅岛，离二肺藏于……');
-}
-
-// 沃尔玛（误）
-/* 我已经完全爱上Warma啦！*/

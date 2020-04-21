@@ -1,9 +1,10 @@
 
 /* 主页面上的javascript文件 */
 
-let titles = ['嗯，你快回来呀(*／ω＼*)', '猜猜我是谁？', '嗯？你去哪儿啦？', '嘤~'];
+let titles = ['Jump to anywhere！', '咦？你去哪儿啦？', 'biu~'];
 let welcomeBackTitle = '欢迎回来！(〃\'▽\'〃)';
 let normalTitle = '弹跳板主页';
+let VCtimeout = null;
 
 /////////////////////////////////////////////////
 
@@ -11,9 +12,13 @@ let normalTitle = '弹跳板主页';
 document.addEventListener('visibilitychange', function () {
   if (document.visibilityState == 'hidden'){
     document.title = titles[Math.floor(Math.random() * Object.keys(titles).length)];
+    if (VCtimeout != null) {
+      clearTimeout(VCtimeout);
+      VCtimeout = null;
+    }
   } else{
     document.title = welcomeBackTitle;
-    setTimeout(function () { document.title = normalTitle }, 1000);
+    VCtimeout = setTimeout(function () { document.title = normalTitle }, 1000);
   }
 });
 

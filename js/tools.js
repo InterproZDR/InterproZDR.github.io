@@ -46,7 +46,6 @@ function configInit() {
     if (configJSON == null)
         restituteConfig();
     else {
-        // checkConfig() 用来加载新加入的设置和删除老旧的奢侈
         config = JSON.parse(configJSON);
         checkConfig();
         // TODO: toolbox的加载
@@ -72,5 +71,3 @@ function showToolbox() {
 function hideToolbox() {
     
 }
-
-// 沃玛！！！

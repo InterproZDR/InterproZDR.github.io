@@ -146,6 +146,10 @@ a:hover{
   background-size: cover;
 }
 
+.sadness{
+  filter: grascale(100%);
+}
+
 @keyframes schbox-helloWorld{
   from{
     width: 0px;
@@ -163,5 +167,3 @@ a:hover{
     filter: grascale(100%);
   }
 }
-
-/* 我已经完全爱上Warma啦！*/
