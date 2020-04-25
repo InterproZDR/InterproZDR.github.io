@@ -71,9 +71,11 @@ function engineUpdateNearBy(opacity) {
 
 function changeEngineTo(index) {
   var fa = document.getElementById("engine-chs"), msx = event.clientX, msy = event.clientY;
-  document.getElementById(engineIdBefore + engine).setAttribute("class", "underline engine engine-candidate");
+  document.getElementById(engineIdBefore + engine).classList.remove("engine-cur");
+  document.getElementById(engineIdBefore + engine).classList.add("engine-candidate");
   document.getElementById(engineIdBefore + engine).onclick = engine_click;
-  document.getElementById(engineIdBefore + index).setAttribute("class", "underline engine engine-cur");
+  document.getElementById(engineIdBefore + index).classList.remove("engine-candidate");
+  document.getElementById(engineIdBefore + index).classList.add("engine-cur");
   document.getElementById(engineIdBefore + index).onclick = usedEngine_click;
   engineUpdateNearBy("");
   engine = index;

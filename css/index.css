@@ -266,6 +266,10 @@ a:hover::after, .underline:hover::after{
   user-select: none;
 }
 
+.text-stroker{
+  text-shadow: 2px 1px 0px black, 2px -1px 0px black;
+}
+
 .bg{
   left: 0px;
   top: 0px;

@@ -1,7 +1,7 @@
 
 var titles = ['Jump to anywhere！', '咦？你去哪儿啦？', 'biu~'];
 var welcomeBackTitle = '欢迎回来！(〃\'▽\'〃)';
-var normalTitle = '弹跳板主页';
+var normalTitle = '实验室里的弹跳版';//'弹跳板主页';
 let VCtimeout = null;
 
 document.addEventListener('visibilitychange', function () {
@@ -41,28 +41,29 @@ function elementsLoad() {
   }
   changeEngineTo(engine);
   updateWalker();
+  addAttributesToElements();
   addEventsToElements();
+}
+
+function addAttributesToElements() {
+  // TODO: Judge the background is light or dark.
+  if (configCheck('judgeBgShade')) {
+    var bg = document.getElementById('bg');
+
+    for (var i = 0; i < Object.keys(engineList).length; ++i) {
+      document.getElementById(engineIdBefore + i).classList.add("text-stroker");
+    }
+  }
 }
 
 // 兼容火狐
 function forFirefox() {
   var agnt = navigator.userAgent;
   if (agnt.indexOf('Firefox') != -1) {
-    const bg = "rgba(255, 255, 255, 0.3)";
+/*    const bg = "rgba(255, 255, 255, 0.3)";
     var sb = document.getElementById('schbox');
-    sb.style.backgroundColor = bg;
-    sb.onmouseenter = function () {
-      this.style.backgroundColor = "";
-    }
-    sb.onmouseleave = function () {
-      if (document.activeElement != this)
-        this.style.backgroundColor = bg;
-    }
-    sb.onblur = function () {
-      this.style.backgroundColor = bg;
-      document.getElementById('clean-button').style.boxShadow = "";
-    }
-    document.addEventListener('DOMMouseScroll', window_onmousewhell);
+    sb.style.backgroundColor = bg;*/
+    document.addEventListener('DOMMouseScroll', allEventListener_onmousewhell);
   }
 }
 
@@ -78,9 +79,10 @@ function addEventsToElements() {
   document.getElementById('reduction-button').onclick = reductionButton_click;
   document.getElementById('schbox').onpaste = schbox_onpaste;
   document.getElementById('schbox').onkeydown = schbox_onkeydown;
-  document.getElementById('schbox').onkeypress = schbox_onkeypress;
+  document.getElementById('schbox').onkeyup = schbox_onkeyup;
   document.getElementById('search-button').onclick = search;
   document.getElementById('clean-line-clickeder').onclick = cleanLine_click;
+  document.getElementById('config-box').onmousewheel = allEventListener_onmousewhell;
 }
 
 /***************************************************/
@@ -134,7 +136,7 @@ function schbox_onkeydown() {
       search();
   }
 }
-function schbox_onkeypress() {
+function schbox_onkeyup() {
   if (document.getElementById('schbox').value != "")
     document.getElementById('clean-line').style.width = cleanLineNormalWidth + "px";
   else
