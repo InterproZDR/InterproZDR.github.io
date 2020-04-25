@@ -1,7 +1,7 @@
 
 var titles = ['Jump to anywhere！', '咦？你去哪儿啦？', 'biu~'];
 var welcomeBackTitle = '欢迎回来！(〃\'▽\'〃)';
-var normalTitle = '实验室里的弹跳版';//'弹跳板主页';
+var normalTitle = '弹跳板主页';
 let VCtimeout = null;
 
 document.addEventListener('visibilitychange', function () {
