@@ -3,72 +3,69 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>弹跳板主页</title>
+    <title>实验室里的弹跳板</title>
     <link href="./css/index.css" type="text/css" rel="stylesheet" />
-    <link href="./css/index_visual.css" type="text/css" rel="stylesheet" />
-    <link href="./css/tools.css" type="text/css" rel="stylesheet" />
-    <link href="./css/favorites.css" type="text/css" rel="stylesheet" />
+    <link href="./css/config.css" type="text/css" rel="stylesheet" />
+    <link href="./css/mul.css" type="text/css" rel="stylesheet" />
     <link href="./css/window.css" type="text/css" rel="stylesheet" />
     <link href="./img/favicon.ico" type="image/x-icon" rel="Shortcut Icon" />
     <script src="./js/index.js"></script>
-    <script src="./js/EasterEgg.js"></script>
-    <script src="./js/tools.js"></script>
+    <script src="./js/config.js"></script>
     <script src="./js/search.js"></script>
-    <script src="./js/favorites.js"></script>
+    <script src="./js/mul.js"></script>
+    <script src="./js/database.js"></script>
+    <script src="./js/pulignsSupport.js"></script>
   </head>
   <body>
-    <div id="bg-black-cover" class="bg"></div><!--兹是学习了a.maorx.cn-->
-    <div id="bg" class="bg"></div>
-    <div id="bg-cover" class="bg"></div>
-    <div id="contain">
-      <!--引擎选择-->
-      <div id="e-chs" class="not-select">
-        <!--TODO: 把这里的东西改成onload-->
-        <span id="e-left" class="underline" onmousedown="changeEngine(-1);">谷歌</span>
-        <span id="e-middle" class="underline" onclick="e_middle_click();">百度</span>
-        <span id="e-right" class="underline" onmousedown="changeEngine(1);">必应</span>
+    <i id="bg-black-cover" class="bg"></i><!--兹是学习了a.maorx.cn-->
+    <i id="bg" class="bg"></i>
+    <div id="all-event-listener"></div>
+    <div id="engine-body">
+      <div id="engine-chs">
+        <span id="engine-walker" class="not-select">
+        </span>
       </div>
-      <div id="search" class="not-select">
-        <div>
-          <div id="sch">
-            <input type="button" id="clean-button" value="<" title="点这里恢复用清除线清掉的内容" onclick="cleanButton_click();" />
-            <input type="text" placeholder="Input..." id="schbox" required="required" onkeydown="schbox_onkeydown();" onmouseover="schbox_onmouseover();" onmouseout="schbox_onmouseout();" onclick="schbox_onclick();" onblur="schbox_onblur();" onkeyup="schbox_onkeypress();"/>
-            <input type="button" id="search-button" value=">" title="点这里搜索" onclick="search();" />
-          </div>
-          <div id="clean-line-box">
-            <div id="clean-line-clickeder" title="biu!你的内容被删掉了" onclick="clean_line_click();">
-              <i id="clean-line"></i>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!--收藏夹-->
-      <div id="favorites-body">
-        <div id="favorites" onload="favoritesInit();">
-          
-        </div>
-      </div>
-      <!--底部收藏栏，类似于手机桌面底部的应用列表-->
-      <div id="most-used-link-body">
-        <div id="most-used-link">
-
-        </div>
-      </div>
-      <!----------->
+      <div id="engine-bg" class="bg"></div>
     </div>
-    <!--Other things down here.-->
-    <div class="window-box" style="display: none;"onclick="this.setAttribute('style', 'display:none;');// temporary...">
-      <!--V&C's window-->
-      <div id="VandC" style="display: none; text-align: center;" class="window" draggable="true">
-        <!--<div class="window-title">
+    <div id="search" class="not-select">
+      <div id="search-fixpos">
+        <div id="sch">
+          <input type="button" id="reduction-button" value="<" title="恢复上一个输入内容"/>
+          <input type="text" placeholder="Input..." id="schbox"/>
+          <input type="button" id="search-button" value=">" title="搜索"/>
+        </div>
+        <div id="clean-line-body">
+          <div id="clean-line-clickeder" title="燃烧我的输入框！">
+            <i id="clean-line"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--底部收藏栏，类似于手机桌面底部的应用列表-->
+    <div id="most-used-link-body">
+      <div id="most-used-link">
+         
+      </div>
+    </div>
+    <div id="config-box">
+      <div id="config-clickeder">
+        <i id="config-button"></i>
+      </div>
+    </div>
+    <div id="notes-body">
+    </div>
+    <div id="window-box" style="display: none;"onclick="this.setAttribute('style', 'display:none;');// temporary...">
+      <!--about-->
+      <div id="about" style="display: none; text-align: center;" class="window" draggable="true">
+        <div class="window-title">
           Introduction
           <span class="window-closer">
             ×
           </span>
         </div>
         <div class="window-content">
-          所有东西由[bilibili]__Outpro__ 一人开发，部分内容从<a href="a.maorx.cn/" target="_blank">毛若昕开发的主页</a>上学习得来。
-        </div>-->
+          <p>所有东西由[bilibili]__Outpro__ 一人开发，部分内容从<a href="https://a.maorx.cn/" target="_blank">青柠<del>终止</del>起始页</a>上学习得来。</p>
+        </div>
       </div>
       <!--设置界面-->
       <div id="config" style="display: none;" class="window" draggable="true">

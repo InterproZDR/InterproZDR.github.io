@@ -1,0 +1,32 @@
+
+/* config.css是写和设置有关的元素的属性 */
+
+#config-box{
+    position: fixed;
+    top: 15px;
+    right: 40px;
+    display: flex;
+}
+
+#config-clickeder{
+    opacity: 0%;
+    width: 70px;
+    height: 70px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    transition: opacity var(--normal-transition-time);
+}
+
+#config-clickeder:hover{
+    opacity: 100%;
+}
+
+#config-button{
+    background-color: var(--normal-bgcolor);
+    width: 25px;
+    height: 25px;
+    cursor: pointer;
+    border-radius: 50%;
+}

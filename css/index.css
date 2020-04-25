@@ -7,44 +7,92 @@ html, body{
   height: 100%;
   margin: 0;
   padding: 0;
+  overflow: hidden;
+}
+
+:root{
+  --normal-bgcolor: rgba(255, 255, 255, 0.2);
+  --special-normal-bgcolor: rgba(255, 100, 0);
+  --special-border-color: orange;
+  --normal-transition-time: .26s;
+}
+
+input[type="button"], input[type="text"]{
+  text-align: center;
+}
+
+input[type="button"]{
+  background-color: rgba(255, 100, 0, 0.8);
+  border: none;
+  cursor: pointer;
+  outline: medium;
+  transition: all var(--normal-transition-time);
+  color: white;
+}
+
+input[type="button"]:hover{
+  background-color: rgba(255, 100, 0, 1);
+}
+
+input[type="button"]:active{
+  background-color: rgba(255, 100, 0, 0.7);
+}
+
+input[type="text"]{
+  background-color: rgb(208, 204, 199);
+  transition: all var(--normal-transition-time);
+}
+
+input[type="text"]::placeholder{
+  color: black;
+  transition: all var(--normal-transition-time);
+}
+
+input[type="text"]:hover{
+  background-color: white;
+}
+
+input[type="text"]:hover::placeholder{
+  color: white;
 }
 
 a{
   text-decoration: none;
-  transition: color 0.3s;
-  color: rgb(225, 164, 180);
+  transition: color var(--normal-transition-time);
+  color: var(--special-normal-bgcolor);
+  position: relative;
 }
 
-a:hover{
-  color: rgb(250, 200, 200);
+a::after, .underline::after{
+  content: "";
+  width: 0;
+  height: 2px;
+  background: var(--special-border-color);
+  /*height: 0px;
+  border: 1px solid var(--special-border-color);*/
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transition: all var(--normal-transition-time);
 }
 
-::-webkit-scrollbar{
-  height: 100%;
-  width: 6px;
-}
-
-::-webkit-scrollbar-thumb{
-  background-color: rgb(20, 30, 30);
-  border-radius: 50%;
-}
-
-::-webkit-scrollbar-track{
-  background-color: rgb(0, 0, 0, 0);
+a:hover::after, .underline:hover::after{
+  left: 0%;
+  width: 100%;
 }
 
 /***************************************/
 
 #bg{
   z-index: -1;
-  background-color: white;
+  background-color: radial-gradient()
 }
 
 #bg-black-cover{
-  background: radial-gradient(rgba(0, 0, 0, 0), rgba(16, 16, 16, 0.9));
+  background: radial-gradient(rgba(0, 0, 0, 0), rgba(4, 4, 4, 0.7));
 }
 
-#contain{
+#all-event-listener{
   position: fixed;
   left: 0px;
   top: 0px;
@@ -61,22 +109,61 @@ a:hover{
   align-items: center;
 }
 
-#e-chs{
-  align-items: center;
-  display: flex;
-  font-family: "Microsoft Yahei";
-  justify-content: center;
-  overflow: hidden;
-  top: 135px;
+#engine-body{
+  top: 127px;
   position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-#e-left, #e-right{
-  font-size: 21px;
+#engine-chs{
+  font-family: "Microsoft Yahei";
+  overflow: hidden;
+  border-radius: 6px;
+  padding-top: 7px;
+  padding-bottom: 7px;
+  width: 570px;
+  height: 70px;
+  display: flex;
+  align-items: center;
+}
+#engine-chs .engine-candidate{
+  opacity: 0%;
+}
+#engine-chs:hover .engine-candidate{
+  opacity: 100%;
 }
 
-#e-middle{
-  font-size: 42px;
+#engine-walker{
+  position: relative;
+  padding: 0px;
+  display: flex;
+  align-items: center;
+  transition: all 0.3s;
+  transition-timing-function: cubic-bezier(0.6, 1, 1.5, 1);
+}
+
+#engine-bg{
+  backdrop-filter: blur(3px);
+  background-color: rgba(255, 255, 255, 0.2);
+  opacity: 0%;
+  z-index: -1;
+  width: 570px;
+  border-radius: 10px;
+  left: calc(50% - 285px);
+  transition: opacity 0.34s;
+}
+#engine-bg:hover{
+  opacity: 100%;
+}
+#engine-chs:hover ~ #engine-bg{
+  opacity: 100%;
+}
+
+#search-fixpos{
+  position: relative;
+  top: -13px;
 }
 
 #sch{
@@ -86,22 +173,66 @@ a:hover{
 
 #schbox{
   animation: schbox-helloWorld 0.6s ease-out;
+  backdrop-filter: blur(10px);
+  background-color: var(--normal-bgcolor);
+  border: none;
   border-radius: 0%;
+  outline: medium;
+  box-shadow: rgb(64, 64, 64) 0px 0px 0px;
+  color: white;
+  font-size: 16px;
   width: 490px;
   height: 42px;
   z-index: 10;
-  outline: medium;
+  transition: background-color 0.3s, color 0.18s, box-shadow 0.26s;
 }
 
-#clean-button, #search-button{
+#schbox:hover{
+  background-color: white;
+  box-shadow: grey 0px 1px 2px, grey 0px -1px 2px;
+  color: black;
+}
+
+#schbox:focus{
+  background-color: white;
+  box-shadow: grey 0px 1px 2px, grey 0px -1px 2px;
+  color: black;
+}
+
+#schbox::-webkit-input-placeholder{
+  color: white;
+}
+#schbox::-moz-placeholder{
+  color: white;
+}
+#schbox:-moz-placeholder{
+  color: white;
+}
+#schbox:-ms-input-placeholder{
+  color: white;
+}
+
+#reduction-button, #search-button{
   height: 44px;
   width: 40px;
   font-size: 16px;
   border-top-left-radius: 0px;
   border-bottom-left-radius: 0px;
+  font-weight: bold;
+  backdrop-filter: blur(10px);
 }
 
-#clean-line-box{
+#reduction-button{
+  border-top-left-radius: 50%;
+  border-bottom-left-radius: 50%;
+}
+
+#search-button{
+  border-top-right-radius: 50%;
+  border-bottom-right-radius: 50%;
+}
+
+#clean-line-body{
   display: flex;
   justify-content: center;
   align-items: center;
@@ -109,17 +240,20 @@ a:hover{
 }
 
 #clean-line-clickeder{
-  height: 8px;
+  height: 10px;
   cursor: pointer;
   display: flex;
   justify-content: center;
   align-items: center;
+  position: relative;
+  top: -2px;
 }
 
 #clean-line{
   height: 2px;
-  width: 570px;
+  width: 540px;
   transition: width 0.26s;
+  background: white;
 }
 
 /***************************************/
@@ -132,23 +266,50 @@ a:hover{
   user-select: none;
 }
 
-.debugger{
-  border: 1px solid red;
-}
-
 .bg{
   left: 0px;
   top: 0px;
   height: 100%;
   width: 100%;
-  position: fixed;
+  position: absolute;
   background-repeat: no-repeat;
   background-size: cover;
+  background-attachment: fixed;
+  background-position: center;
 }
 
 .sadness{
   filter: grascale(100%);
 }
+
+.engine{
+  cursor: pointer;
+  color: white;
+  transition: color 0.2s;
+  margin-left: 4px;
+  margin-right: 4px;
+  white-space: nowrap;
+  position: relative;
+  transition: all calc(var(--normal-transition-time) + 0.36s), font-size 0s;
+}
+
+.engine-cur{
+  font-size: 42px;
+}
+
+.engine-cur:active{
+  color: #DDD;
+}
+
+.engine-candidate{
+  font-size: 21px;
+}
+
+.underline{
+  position: relative;
+}
+
+/***************************************/
 
 @keyframes schbox-helloWorld{
   from{
