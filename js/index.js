@@ -150,9 +150,9 @@ function engineBody_onmouseleave() {
 }
 
 function engine_onmouseup(e) {
-  return;
   var btn = e.button;
   if (btn == 2) {
+    return;
     var ee = $('engine-editor');
     e.preventDefault();
     engineEditorShow(e);
