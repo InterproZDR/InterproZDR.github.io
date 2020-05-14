@@ -3,7 +3,7 @@
 // database.js现在完全使用localStorge存储有关数据
 // database.js的标识符命名格式：
 //      1. 驼峰命名法
-//      2. 库名+作用
+//      2. 模块+用途
 //         如：engineLoad()、configResitute()、configNormal、publicNetAgreements
 // TODO: 当database.js里的东西过多时，将database.js拆分成多个文件
 
@@ -13,13 +13,26 @@ function databaseLoad() {
     mulDatabaseLoad();
 }
 
+function databaseSaveItem(name, val) {
+    localStorage.setItem("jumper_" + name, val);
+}
+
+function databaseGetItem(name) {
+    return localStorage.getItem('jumper_' + name);
+}
+
+function databaseAddListener(name, func) {
+    
+}
+
 /***************************************************/
 
 // configNormal是当页面设置在localStorage中不存在或异常时的默认设置
 const configNormal = {
     'bgPicUrl': 'https://i.loli.net/2020/03/29/E2AThbHGyFztOrQ.jpg',  // 背景图的url
     'theme': 'normal-light',        // 主题
-    'judgeBgShade': true           // 自动判断背景颜色的深浅
+    'judgeBgShade': true,           // 自动判断背景颜色的深浅
+    'autolyClear': true            // 自动清空搜索框中的内容
 };
 const netAgreements = ['http://', 'https://', 'ftp://', 'file:///'];
 const cleanLineNormalWidth = 540;
@@ -29,7 +42,7 @@ var engineList;     // 引擎列表
 // 载入设置
 function configDatabaseLoad() {
     console.log("Config loading...");
-    var configJSON = localStorage.getItem('configMap');
+    var configJSON = databaseGetItem('configMap');
     if (configJSON == null) {
         configRestitute();
         return;
@@ -70,7 +83,7 @@ function configEdit(key, val) {
 // 保存config
 function configSave() {
     configJSON = JSON.stringify(configMap);
-    localStorage.setItem('configMap', configJSON);
+    databaseSaveItem('configMap', configJSON);
 }
 
 // 还原默认设置
@@ -83,7 +96,7 @@ function configRestitute() {
 
 // 将config映射到其对应的元素上
 function configMapToElements() {
-    document.getElementById('bg').setAttribute('style', 'background-image: url(' + configMap['bgPicUrl'] + ');');
+    $('bg').setAttribute('style', 'background-image: url(' + configMap['bgPicUrl'] + ');');
     if (configMap['judgeBgShade'] == 'true') {
         
     }
@@ -98,12 +111,12 @@ const engineListNormal = [
     new Engine('知乎', 'https://www.zhihu.com/search?q=%s', 'https://www.zhihu.com/'),
     new Engine('Acfun', 'https://www.acfun.cn/search?keyword=%s', 'https://www.acfun.cn/'),
     new Engine('Bilibili', 'https://search.bilibili.com/all?keyword=%s', 'https://www.bilibili.com'),
-    new Engine('萌百', 'https://zh.moegirl.org/index.php?search=%s', 'https://zh.moegirl.org/Mainpage'),
+    new Engine('萌娘百科', 'https://zh.moegirl.org/index.php?search=%s', 'https://zh.moegirl.org/Mainpage'),
     new Engine('翻译', 'https://translate.google.cn/#view=home&op=translate&sl=auto&tl=zh-CN&text=%s', 'https://translate.google.cn/')
 ];
 
 function engineDatabaseLoad() {
-    var engineListJSON = localStorage.getItem('engineList');
+    var engineListJSON = databaseGetItem('engineList');
     engineList = [];
     if (engineListJSON == null) {
         engineRestitute();
@@ -112,18 +125,18 @@ function engineDatabaseLoad() {
         for (key in engineListTemp) {
             engineAdd(new Engine(engineListTemp[key]["name"], engineListTemp[key]["searchto"], engineListTemp[key]["searchnan"]));
         }
-        engine = localStorage.getItem('engine') * 1;
+        engine = databaseGetItem('engine') * 1;
         if (engine == NaN) {
-            localStorage.setItem('engine', '2');
+            databaseSaveItem('engine', '2');
             engine = 2;
         }
     }
     // 例如Firefox这样的浏览器在刷新页面之后会回复在输入框中的内容
     // 这时候需要检测schbox的value以判断clean-line是否要收起来
-    if (document.getElementById('schbox').value != "")
-        document.getElementById('clean-line').style.width = "540px";
+    if ($('schbox').value != "")
+        $('clean-line').style.width = cleanLineNormalWidth + "px";
     else
-        document.getElementById('clean-line').style.width = "0px";
+        $('clean-line').style.width = "0px";
     console.log("Engine Loaded.");
 }
 
@@ -137,10 +150,13 @@ function engineGet(index) {
 
 function engineEdit(index, altEngine) {
     engineList[index] = altEngine;
+    engineSave();
 }
 
 function engineAdd(newe) {
     engineList.push(newe);
+    
+    engineSave();
 }
 
 function engineRemove(index) {
@@ -154,8 +170,8 @@ function engineRestitute() {
 }
 
 function engineSave() {
-    localStorage.setItem('engineList', engineToJSON());
-    localStorage.setItem('engine', String(engine));
+    databaseSaveItem('engineList', engineToJSON());
+    databaseSaveItem('engine', String(engine));
 }
 
 function engineToJSON() {
@@ -187,4 +203,15 @@ function mulRemove(index) {
 
 function mulEdit(index, link, name) {
     
+}
+
+/***************************************************/
+
+function noteLoad() {
+    
+}
+
+function jumperLoad() {
+    console.log('coincidance');
+    console.log("https://hulaya.github.io/");
 }

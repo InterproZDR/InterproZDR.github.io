@@ -3,7 +3,8 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>实验室里的弹跳板</title>
+    <meta charset="unicode">
+    <title>嘤嘤嘤你看不到我</title>
     <link href="./css/index.css" type="text/css" rel="stylesheet" />
     <link href="./css/config.css" type="text/css" rel="stylesheet" />
     <link href="./css/mul.css" type="text/css" rel="stylesheet" />
@@ -15,6 +16,7 @@
     <script src="./js/mul.js"></script>
     <script src="./js/database.js"></script>
     <script src="./js/pulignsSupport.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
   </head>
   <body>
     <i id="bg-black-cover" class="bg"></i><!--兹是学习了a.maorx.cn-->
@@ -41,35 +43,56 @@
         </div>
       </div>
     </div>
-    <!--底部收藏栏，类似于手机桌面底部的应用列表-->
+    <!--TODO: 底部收藏栏，类似于手机桌面底部的应用列表-->
     <div id="most-used-link-body">
       <div id="most-used-link">
          
       </div>
     </div>
-    <div id="config-box">
-      <div id="config-clickeder">
-        <i id="config-button"></i>
-      </div>
+    <div id="rtb-box">
+        <i id="config-rtb" class="rtb"></i>
+        <i id="question-rtb" class="rtb"></i>
     </div>
     <div id="notes-body">
     </div>
-    <div id="window-box" style="display: none;"onclick="this.setAttribute('style', 'display:none;');// temporary...">
+    <div id="engine-editor" class="window-editor window-editor-hidden">
+      <div id="engine-eidtor-toptext" class="window-editor-toptext">{{ message }}</div>
+      <div class="window-editor-group">
+        <input type="text" id="engine-editor-name" placeholder="引擎名称" required="true" />
+      </div>
+      <div class="window-editor-group">
+        <input type="text" id="engine-editor-searchto" placeholder="以%s代替查询的url" required="true"/>
+      </div>
+      <div class="window-editor-group">
+        <input type="text" id="engine-editor-searchnan" placeholder="无输入时打开的url" required="true"/>
+      </div>
+      <div class="window-editor-errtext"></div>
+      <div class="window-editor-bottombutton-group" id="engine-editor-button-group">
+        <input type="button" id="engine-editor-cancel" class="window-button window-button-cancel" value="取消">
+        <input type="button" id="engine-editor-sure" class="window-button" value="确定">
+      </div>
+    </div>
+    <!--TODO: 窗口-->
+    <div id="window-box" style="display: none;"onclick="this.setAttribute('style', 'display: none;');// temporary...">
       <!--about-->
-      <div id="about" style="display: none; text-align: center;" class="window" draggable="true">
+      <div id="about" style="display: ;" class="window" draggable="true">
         <div class="window-title">
           Introduction
           <span class="window-closer">
-            ×
           </span>
         </div>
         <div class="window-content">
-          <p>所有东西由[bilibili]__Outpro__ 一人开发，部分内容从<a href="https://a.maorx.cn/" target="_blank">青柠<del>终止</del>起始页</a>上学习得来。</p>
+          <p>这是一个普通的起始页</p>
+          <p>它由<a href="" target="_blank">__Outpro__</a>一人制作</p>
+          <p>不少设计从<a href="https://a.maorx.cn/">青柠<del>终止</del>起始页</a>上学习得来。</p>
+
         </div>
       </div>
-      <!--设置界面-->
-      <div id="config" style="display: none;" class="window" draggable="true">
+      <!--TODO: 设置界面-->
+      <div id="config-window" style="display: none;" class="window" draggable="true">
 
+      </div>
+      <div id="note-window" style="display: none;" class="window" draggable="true">
       </div>
     </div>
   </body>

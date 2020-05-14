@@ -16,6 +16,7 @@ class Engine {
 const engineIdBefore = "engine";
 var engine = 2;     // 当前使用的引擎的编号（注意，engine不可为0）
 var cleanRecord = "";// 使用删除线清除的内容
+let _walkerUpdateTimeout = null;
 
 // 返回合法的i（如果i小于等于0则返回1， 如果i大于等于Object.keys(engineList).length则返回Object.keys(engineList).length-1
 function enlegalEngineIndex(i) {
@@ -25,37 +26,37 @@ function enlegalEngineIndex(i) {
 // 获取将要打开的新页面的url
 // 如果altrnatingText为链接则直接返回altrnatingText
 function getTargetUrl(altrnatingText) {
-  for (var i = 0; i < Object.keys(netAgreements).length; ++i)
-    if (altrnatingText.indexOf(netAgreements[i]) == 0)
+  for (var i = 0; i < Object.keys(netAgreements).length; ++i) {
+    if (altrnatingText.indexOf(netAgreements[i]) == 0) {
       return altrnatingText;
-  if (altrnatingText == '')
+    }
+  }
+  if (altrnatingText == '') {
     return engineList[engine].searchnan;
-  else
+  }
+  else {
     return engineList[engine].searchto.replace('%s', altrnatingText);
+  }
 }
 
 // 搜索并打开新页面
 function search() {
-  var schbox = document.getElementById('schbox');
+  var schbox = $('schbox');
   var url = getTargetUrl(schbox.value);
+  if (configMap['autolyClear'] == true) {
+    cleanRecord = schbox.value;
+    schbox.value = "";
+    $('clean-line').style.width = "0px";
+  }
   window.open(url);
-}
-
-function usedEngine_click() {
-  window.open(engineList[engine].searchnan);
-}
-
-function engine_click() {
-  changeEngineTo(this.id.substring(engineIdBefore.length) * 1);
-  document.getElementById('schbox').focus();
 }
 
 // 刷新engine-walker的位置
 function updateWalker() {
   var left = 0;
-  var walker = document.getElementById('engine-walker'),
-    chs = document.getElementById('engine-chs'),
-    e = document.getElementById(engineIdBefore + engine);
+  var walker = $('engine-walker'),
+      chs = $('engine-chs'),
+      e = getEngineElement(engine);
   left = e.offsetLeft + e.offsetWidth / 2;
   left = chs.offsetWidth / 2 - left;
   walker.style.left = left + "px";
@@ -63,25 +64,33 @@ function updateWalker() {
 
 function engineUpdateNearBy(opacity) {
   var nxt = enlegalEngineIndex(engine + 1), lst = enlegalEngineIndex(engine - 1);
-  if (nxt == engine + 1)
-    document.getElementById(engineIdBefore + nxt).style.opacity = opacity;
-  if (lst == engine - 1)
-    document.getElementById(engineIdBefore + lst).style.opacity = opacity;
+  if (nxt == engine + 1) {
+    getEngineElement(nxt).style.opacity = opacity;
+  }
+  if (lst == engine - 1) {
+    getEngineElement(lst).style.opacity = opacity;
+  }
+}
+
+function getEngineElement(id) {
+  return $(engineIdBefore + id);
 }
 
 function changeEngineTo(index) {
-  var fa = document.getElementById("engine-chs"), msx = event.clientX, msy = event.clientY;
-  document.getElementById(engineIdBefore + engine).classList.remove("engine-cur");
-  document.getElementById(engineIdBefore + engine).classList.add("engine-candidate");
-  document.getElementById(engineIdBefore + engine).onclick = engine_click;
-  document.getElementById(engineIdBefore + index).classList.remove("engine-candidate");
-  document.getElementById(engineIdBefore + index).classList.add("engine-cur");
-  document.getElementById(engineIdBefore + index).onclick = usedEngine_click;
+  getEngineElement(engine).classList.remove("engine-cur");
+  getEngineElement(engine).classList.add("engine-candidate");
+  getEngineElement(index).classList.remove("engine-candidate");
+  getEngineElement(index).classList.add("engine-cur");
   engineUpdateNearBy("");
   engine = index;
-  if (!engineChsEntered)
-    engineUpdateNearBy("40%");
+  databaseSaveItem('engine', String(engine));
+  if (!engineChsEntered) {
+    engineUpdateNearBy("70%");
+  }
   updateWalker();
+  if (_walkerUpdateTimeout != null) {
+    clearTimeout(_walkerUpdateTimeout);
+  }
+  _walkerUpdateTimeout = setTimeout(() => { updateWalker(); _walkerUpdateTimeout = null; }, 340);
   updateTitle();
-  localStorage.setItem('engine', String(engine));
 }

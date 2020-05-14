@@ -1,8 +1,16 @@
 
-var titles = ['Jump to anywhere！', '咦？你去哪儿啦？', 'biu~'];
+var titles = ['Jump to anywhere！', '咦？你去哪儿啦？', 'biu~', '得得得得得得得得得得得得得得得得得'];
 var welcomeBackTitle = '欢迎回来！(〃\'▽\'〃)';
-var normalTitle = '实验室里的弹跳版';//'弹跳板主页';
+var normalTitle = '弹跳板起始页';
 let VCtimeout = null;
+let engineEditorTopText;
+let engineEdited = null;
+let mouseDownRelativePos = { x: 0, y: 0 };
+let mouseFollowInterval = null;
+
+function $(name) {
+  return document.getElementById(name) || document.getElementsByClassName(name);
+}
 
 document.addEventListener('visibilitychange', function () {
   if (document.visibilityState == 'hidden'){
@@ -20,22 +28,24 @@ document.addEventListener('visibilitychange', function () {
 window.onload = function () {
   databaseLoad();
   elementsLoad();
-  forFirefox();2
+  forFirefox();
   updateTitle();
+  console.log('<-------------------------------->');
+  console.log('    Yeah! Welcome to Jumper!      ');
+  console.log('<-------------------------------->');
 }
 
 function elementsLoad() {
-  var engineChs = document.getElementById("engine-walker");
+  var engineChs = $("engine-walker");
   for (var i = 0; i < Object.keys(engineList).length; ++i) {
     var ith = document.createElement('span');
     ith.id = engineIdBefore + i;
     ith.innerHTML = engineList[i].name;
+    ith.onmouseup = engine_onmouseup;
     if (i != engine) {
-      ith.setAttribute("class", "underline engine engine-candidate");
-      ith.onclick = engine_click;
+      ith.setAttribute("class", "engine engine-candidate");
     } else {
-      ith.setAttribute("class", "underline engine engine-cur");
-      ith.onclick = usedEngine_click;
+      ith.setAttribute("class", "engine engine-cur");
     }
     engineChs.appendChild(ith);
   }
@@ -48,41 +58,45 @@ function elementsLoad() {
 function addAttributesToElements() {
   // TODO: Judge the background is light or dark.
   if (configCheck('judgeBgShade')) {
-    var bg = document.getElementById('bg');
-
+    var bg = $('bg');
     for (var i = 0; i < Object.keys(engineList).length; ++i) {
-      document.getElementById(engineIdBefore + i).classList.add("text-stroker");
+      getEngineElement(i).classList.add("text-stroker");
     }
   }
+  engineEditorTopText = new Vue({
+    el: "#engine-eidtor-toptext",
+    data: {
+      message: "引擎修改界面"
+    }
+  });
+}
+
+function addEventsToElements() {
+  document.documentElement.onpaste = documentElement_onpaste;
+  document.documentElement.onkeydown = documentElement_onkeydown;
+  $('all-event-listener').onmousewheel = allEventListener_onmousewhell;
+  $('all-event-listener').ondblclick = allEventListener_ondblclick;
+  $('engine-body').oncontextmenu = engineBody_oncontextmenu;
+  $('engine-body').onmouseenter = engineBody_onmouseenter;
+  $('engine-body').onmouseleave = engineBody_onmouseleave;
+  $('engine-body').onmousewheel = allEventListener_onmousewhell;
+  $('engine-editor-cancel').onclick = engineEditorCancle_onclick;
+  $('engine-editor-sure').onclick = engineEditorSure_onclick;
+  $('search').onmousewheel = allEventListener_onmousewhell;
+  $('reduction-button').onclick = reductionButton_click;
+  $('schbox').onpaste = schbox_onpaste;
+  $('schbox').onkeydown = schbox_onkeydown;
+  $('schbox').onkeyup = schbox_onkeyup;
+  $('search-button').onclick = search;
+  $('clean-line-clickeder').onclick = cleanLine_click;
 }
 
 // 兼容火狐
 function forFirefox() {
   var agnt = navigator.userAgent;
   if (agnt.indexOf('Firefox') != -1) {
-/*    const bg = "rgba(255, 255, 255, 0.3)";
-    var sb = document.getElementById('schbox');
-    sb.style.backgroundColor = bg;*/
     document.addEventListener('DOMMouseScroll', allEventListener_onmousewhell);
   }
-}
-
-// 为元素添加事件
-function addEventsToElements() {
-  document.getElementById('all-event-listener').onmousewheel = allEventListener_onmousewhell;
-  document.getElementById('all-event-listener').ondblclick = allEventListener_ondblclick;
-  document.getElementById('engine-chs').onmousedown = engineChs_onmousedown;
-  document.getElementById('engine-chs').onmouseenter = engineChs_onmouseenter;
-  document.getElementById('engine-chs').onmouseleave = engineChs_onmouseleave;
-  document.getElementById('engine-body').onmousewheel = allEventListener_onmousewhell;
-  document.getElementById('search').onmousewheel = allEventListener_onmousewhell;
-  document.getElementById('reduction-button').onclick = reductionButton_click;
-  document.getElementById('schbox').onpaste = schbox_onpaste;
-  document.getElementById('schbox').onkeydown = schbox_onkeydown;
-  document.getElementById('schbox').onkeyup = schbox_onkeyup;
-  document.getElementById('search-button').onclick = search;
-  document.getElementById('clean-line-clickeder').onclick = cleanLine_click;
-  document.getElementById('config-box').onmousewheel = allEventListener_onmousewhell;
 }
 
 /***************************************************/
@@ -90,43 +104,80 @@ function addEventsToElements() {
 /***************************************************/
 
 var engineChsEntered = false;
+var engineSelected = -1;
+
+function documentElement_onkeydown(e) {
+  $('schbox').focus();
+}
+
+function documentElement_onpaste(e) {
+  $('clean-line').style.width = cleanLineNormalWidth + "px";
+}
 
 function allEventListener_onmousewhell() {
   var e = event || window.event || arguments.callee.caller.arguments[0];
   var d = e.wheelDelta || e.detail;
   var dir;
-  // 有些鼠标的滚轮可以向左推或者向右推，这时候要避免处理成切换两次。
-  if (d == 480 || d == -480)
-    return;
   dir = d > 0 ? -1 : 1;
-  if (navigator.userAgent.indexOf('Firefox') != -1)
+  if (navigator.userAgent.indexOf('Firefox') != -1) {
     dir = -dir;
+  }
   changeEngineTo(enlegalEngineIndex(engine + dir));
-  document.getElementById('schbox').focus();
+  $('schbox').focus();
 }
 
 function allEventListener_ondblclick() {
+  // TODO: 创建新便笺
 }
 
-function engineChs_onmousedown(e) {
-  if (e == 2) {
-    
+function engineBody_oncontextmenu(e) {
+  return;
+  if (e.button == 2) {
+    var ee = $('engine-editor');
+    engineEditorShow(e);
+    e.preventDefault();
   }
 }
 
-function engineChs_onmouseenter() {
+function engineBody_onmouseenter() {
   engineChsEntered = true;
   engineUpdateNearBy("100%");
 }
 
-function engineChs_onmouseleave() {
+function engineBody_onmouseleave() {
   engineChsEntered = false;
-  engineUpdateNearBy("40%");
+  engineUpdateNearBy("70%");
+}
+
+function engine_onmouseup(e) {
+  return;
+  var btn = e.button;
+  if (btn == 2) {
+    var ee = $('engine-editor');
+    e.preventDefault();
+    engineEditorShow(e);
+//    engineEdited = 
+  } else if (btn == 0) {
+    if (this.id.substring(engineIdBefore.length) * 1 == engine) {
+      window.open(engineList[engine].searchnan);
+    }
+    else {
+      changeEngineTo(this.id.substring(engineIdBefore.length) * 1);
+      $('schbox').focus();
+    }
+  }
+}
+
+function engineEditorSure_onclick() {
+  engineEditorClose();
+}
+
+function engineEditorCancle_onclick() {
+  engineEditorClose();
 }
 
 function schbox_onpaste() {
-  var sb = document.getElementById('schbox');
-  document.getElementById('clean-line').style.width = cleanLineNormalWidth + "px";
+  $('clean-line').style.width = cleanLineNormalWidth + "px";
 }
 function schbox_onkeydown() {
   var e = event || window.event || arguments.callee.caller.arguments[0];
@@ -137,38 +188,55 @@ function schbox_onkeydown() {
   }
 }
 function schbox_onkeyup() {
-  if (document.getElementById('schbox').value != "")
-    document.getElementById('clean-line').style.width = cleanLineNormalWidth + "px";
-  else
-    document.getElementById('clean-line').style.width = "0px";
+  if ($('schbox').value != "") {
+    $('clean-line').style.width = cleanLineNormalWidth + "px";
+  }
+  else {
+    $('clean-line').style.width = "0px";
+  }
 }
 
 function reductionButton_click() {
-  var sb = document.getElementById('schbox');
+  var sb = $('schbox');
   if (cleanRecord != "" && sb.value == "") {
     sb.value = cleanRecord;
     sb.focus();
     if (navigator.userAgent.indexOf('Firefox')) {
-      document.getElementById('schbox').style.background = "";
+      sb.style.background = "";
     }
     cleanRecord = "";
-    document.getElementById('clean-line').style.width = cleanLineNormalWidth + "px";
+    $('clean-line').style.width = cleanLineNormalWidth + "px";
   }
 }
 
 // 点击清除线
 function cleanLine_click() {
-  var sb = document.getElementById('schbox');
-  if (sb.value != '')
-    cleanRecord = document.getElementById('schbox').value;
+  var sb = $('schbox');
+  if (sb.value != '') {
+    cleanRecord = sb.value;
+  }
   sb.value = "";
-  document.getElementById('clean-line').style.width = "0px";
-  document.getElementById('schbox').focus();
+  $('clean-line').style.width = "0px";
+  $('schbox').focus();
   if (navigator.userAgent.indexOf('Firefox')) {
-    document.getElementById('schbox').style.background = "";
+    $('schbox').style.background = "";
   }
 }
 
 function updateTitle() {
   document.title = normalTitle + " - " + engineList[engine].name;
+}
+
+function engineEditorShow(e) {
+  var ee = $('engine-editor');
+  ee.classList.remove("window-editor-hidden");
+  ee.classList.add("window-editor-shown");
+  ee.style.left = e.clientX + 20 + "px";
+  ee.style.top = (e.clientY - ee.offsetHeight / 2) + "px";
+
+}
+
+function engineEditorClose() {
+  $('engine-editor').classList.remove("window-editor-shown");
+  $('engine-editor').classList.add("window-editor-hidden");
 }

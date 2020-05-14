@@ -31,7 +31,7 @@
 /***************************************************/
 
 .window{
-  background-color: wheat;
+  background-color: white;
   /*border-radius: 4px;*
   border-top-right-radius: 8px; /* 勿忘国耻。 *//* 打算以后再每年的9月18日和7月7日特定地出现这个 */
   box-shadow: grey 0px 0px 3px;
@@ -78,4 +78,81 @@
 .window-content::-webkit-scrollbar-thumb{
     border-radius: 50%;
 
+}
+
+/***************************************************/
+
+.window-editor{
+  background: white;
+  border-radius: 12px;
+  box-shadow: grey 0px 0px 4px;
+  position: fixed;
+  z-index: 10000;
+  padding: 18px 20px 14px 20px;
+}
+
+.window-editor-hidden{
+  display: none;
+}
+
+.window-editor-shown{
+  display: block;
+}
+
+.window-editor input[type="text"]{
+  width: 260px;
+}
+
+.window-editor-toptext{
+  text-align: center;
+  width: 100%;
+  font-size: 16px;
+}
+
+.window-editor-group{
+  margin-top: 7px;
+  margin-bottom: 7px;
+}
+
+.window-editor-bottombutton-group{
+  width: 100%;
+}
+
+#engine-editor-button-group #engine-editor-cancel{
+  position: relative;
+  left: 23px;
+}
+
+#engine-editor-button-group #engine-editor-sure{
+  position: absolute;
+  right: 43px;
+}
+
+/*********************窗口组件**********************/
+
+.window-button{
+  margin-right: 0px;
+  height: 28px;
+  border-radius: 14px;
+  color: black;
+  border: 1px solid var(--theme-color) !important;
+  background-color: white !important;
+}
+.window-button:hover{
+  color: white;
+  background-color: var(--theme-color) !important;
+}
+
+/*********************窗口组件**********************/
+
+@keyframes window-editor-hide{
+  0% {
+    display: block;
+    transform: scale(100%);
+  } 50% {
+    transform: scale(140%);
+  } 100% {
+    display: none;
+    transform: scale(0%);
+  }
 }

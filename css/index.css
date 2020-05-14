@@ -12,54 +12,47 @@ html, body{
 
 :root{
   --normal-bgcolor: rgba(255, 255, 255, 0.2);
-  --special-normal-bgcolor: rgba(255, 100, 0);
-  --special-border-color: orange;
   --normal-transition-time: .26s;
+  --theme-color: rgba(0, 100, 255);
 }
 
 input[type="button"], input[type="text"]{
+  border-color: rgba(0, 0, 0, 0);
+  outline: medium;
   text-align: center;
 }
 
 input[type="button"]{
-  background-color: rgba(255, 100, 0, 0.8);
-  border: none;
   cursor: pointer;
-  outline: medium;
+  padding: 5px 13px 5px 13px;
+  background-color: var(--theme-color);
   transition: all var(--normal-transition-time);
-  color: white;
-}
-
-input[type="button"]:hover{
-  background-color: rgba(255, 100, 0, 1);
-}
-
-input[type="button"]:active{
-  background-color: rgba(255, 100, 0, 0.7);
 }
 
 input[type="text"]{
-  background-color: rgb(208, 204, 199);
+  background-color: rgb(215, 213, 212);
+  border-radius: 11px;
+  height: 22px;
   transition: all var(--normal-transition-time);
 }
-
 input[type="text"]::placeholder{
-  color: black;
-  transition: all var(--normal-transition-time);
+  color: grey;
+  opacity: 100%;
 }
-
 input[type="text"]:hover{
-  background-color: white;
+  background-color: rgba(197, 196, 198);
 }
-
-input[type="text"]:hover::placeholder{
-  color: white;
+input[type="text"]:focus{
+  background-color: rgba(186, 183, 184);
+}
+input[type="text"]:focus::placeholder{
+  opacity: 0;
 }
 
 a{
+  color: var(--theme-color);
   text-decoration: none;
   transition: color var(--normal-transition-time);
-  color: var(--special-normal-bgcolor);
   position: relative;
 }
 
@@ -67,9 +60,7 @@ a::after, .underline::after{
   content: "";
   width: 0;
   height: 2px;
-  background: var(--special-border-color);
-  /*height: 0px;
-  border: 1px solid var(--special-border-color);*/
+  background: var(--theme-color);
   position: absolute;
   top: 100%;
   left: 50%;
@@ -89,7 +80,7 @@ a:hover::after, .underline:hover::after{
 }
 
 #bg-black-cover{
-  background: radial-gradient(rgba(0, 0, 0, 0), rgba(4, 4, 4, 0.7));
+  background: radial-gradient(rgba(0, 0, 0, 0), rgba(4, 4, 4, 0.6));
 }
 
 #all-event-listener{
@@ -102,7 +93,7 @@ a:hover::after, .underline:hover::after{
 
 #search{
   position: relative;
-  top: 156px;
+  top: 113px;
   z-index: 99;
   display: flex;
   justify-content: center;
@@ -110,60 +101,53 @@ a:hover::after, .underline:hover::after{
 }
 
 #engine-body{
-  top: 127px;
+  top: 103px;
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
 }
+#engine-body:hover .engine-candidate, #engine-body:hover #engine-bg{
+  opacity: 100%;
+}
 
 #engine-chs{
   font-family: "Microsoft Yahei";
   overflow: hidden;
-  border-radius: 6px;
-  padding-top: 7px;
-  padding-bottom: 7px;
-  width: 570px;
-  height: 70px;
+  width: var(--engine-chs-width);
+  height: 114px;
   display: flex;
   align-items: center;
+  --engine-chs-width: 540px;
 }
 #engine-chs .engine-candidate{
   opacity: 0%;
 }
-#engine-chs:hover .engine-candidate{
-  opacity: 100%;
-}
 
 #engine-walker{
   position: relative;
-  padding: 0px;
+  height: 114px;
+  padding-left: 0px;
+  padding-right: 0px;;
   display: flex;
   align-items: center;
-  transition: all 0.3s;
-  transition-timing-function: cubic-bezier(0.6, 1, 1.5, 1);
+  transition: all .34s;
 }
 
 #engine-bg{
   backdrop-filter: blur(3px);
-  background-color: rgba(255, 255, 255, 0.2);
+  background-color: var(--normal-bgcolor);
   opacity: 0%;
   z-index: -1;
-  width: 570px;
+  width: 640px;
   border-radius: 10px;
-  left: calc(50% - 285px);
+  left: calc(50% - var(--engine-chs-width));
+  box-shadow: var(--normal-bgcolor) 2px 0px 0px;
   transition: opacity 0.34s;
-}
-#engine-bg:hover{
-  opacity: 100%;
-}
-#engine-chs:hover ~ #engine-bg{
-  opacity: 100%;
 }
 
 #search-fixpos{
   position: relative;
-  top: -13px;
 }
 
 #sch{
@@ -172,8 +156,8 @@ a:hover::after, .underline:hover::after{
 }
 
 #schbox{
-  animation: schbox-helloWorld 0.6s ease-out;
-  backdrop-filter: blur(10px);
+  animation: schbox-helloWorld 1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  backdrop-filter: blur(4px);
   background-color: var(--normal-bgcolor);
   border: none;
   border-radius: 0%;
@@ -213,6 +197,7 @@ a:hover::after, .underline:hover::after{
 }
 
 #reduction-button, #search-button{
+  color: white;
   height: 44px;
   width: 40px;
   font-size: 16px;
@@ -220,6 +205,13 @@ a:hover::after, .underline:hover::after{
   border-bottom-left-radius: 0px;
   font-weight: bold;
   backdrop-filter: blur(10px);
+  background-color: var(--theme-color)
+}
+#reduction-button:hover, #search-button:hover{
+  background-color: rgb(0, 120, 255);
+}
+#reduction-button:active, #search-button:active{
+  background-color: rgb(0, 70, 255);
 }
 
 #reduction-button{
@@ -267,7 +259,7 @@ a:hover::after, .underline:hover::after{
 }
 
 .text-stroker{
-  text-shadow: 2px 1px 0px black, 2px -1px 0px black;
+
 }
 
 .bg{
@@ -290,19 +282,33 @@ a:hover::after, .underline:hover::after{
   cursor: pointer;
   color: white;
   transition: color 0.2s;
-  margin-left: 4px;
-  margin-right: 4px;
+  padding-left: 14px;
+  padding-right: 14px;
   white-space: nowrap;
   position: relative;
-  transition: all calc(var(--normal-transition-time) + 0.36s), font-size 0s;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all .34s, color 0s, height .26s;
+}
+.engine:hover{
+  background-color: rgba(255, 255, 255, 0.3);
+  color: #DD0;
+}
+.engine:active{
+  background-color: rgba(200, 200, 200, 0.4);
 }
 
 .engine-cur{
+  color: yellow;
   font-size: 42px;
 }
-
+.engine-cur:hover{
+  color: yellow ;
+}
 .engine-cur:active{
-  color: #DDD;
+  height: 90%;
 }
 
 .engine-candidate{
@@ -316,11 +322,10 @@ a:hover::after, .underline:hover::after{
 /***************************************/
 
 @keyframes schbox-helloWorld{
-  from{
-    width: 0px;
-  }
-  to{
-    width: 488px;
+  0%{
+    width: 0px
+  } 100% {
+    width: 480px
   }
 }
 
