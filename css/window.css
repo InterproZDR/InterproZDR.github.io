@@ -30,6 +30,25 @@
 
 /***************************************************/
 
+#console-output-box{
+  width: 100%;
+  height: 320px;
+  margin-bottom: 10px;
+  background: rgb(216, 216, 216);
+  overflow: scroll;
+}
+
+#console-order-input{
+  width: 625px;
+}
+
+.consoleUserInput{
+  text-decoration: underline;
+  text-decoration-color: blue;
+}
+
+/***************************************************/
+
 .window{
   background-color: white;
   /*border-radius: 4px;*
@@ -47,12 +66,12 @@
   left: 0px;
   width: 100%;
   height: 22px;
-  text-align: center;
+  text-align: center;/*
   -moz-user-select: none;
   -webkit-user-select: none;
   -ms-user-select: none;
   -khtml-user-select: none;
-  user-select: none;
+  user-select: none;*/
 }
 
 .window-closer::before{
@@ -126,6 +145,12 @@
 #engine-editor-button-group #engine-editor-sure{
   position: absolute;
   right: 43px;
+}
+
+.consoleLineNum{
+  background-color: rgb(170, 170, 170);
+  min-width: 14px;
+  text-align: center;
 }
 
 /*********************窗口组件**********************/

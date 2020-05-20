@@ -2,11 +2,10 @@
 var titles = ['Jump to anywhere！', '咦？你去哪儿啦？', 'biu~', '得得得得得得得得得得得得得得得得得'];
 var welcomeBackTitle = '欢迎回来！(〃\'▽\'〃)';
 var normalTitle = '弹跳板起始页';
-let VCtimeout = null;
-let engineEditorTopText;
-let engineEdited = null;
-let mouseDownRelativePos = { x: 0, y: 0 };
-let mouseFollowInterval = null;
+var consoleOutputBox;       // 使用vue实现的，作用于#console-output-box的对象
+var consoleOrderInput;      // 使用vue实现的，作用于#console-order-input的对象
+var getKeyInJam = true;    // 用于阻塞#schbox获得焦点的变量
+let VCtimeout = null;       // visibility change使用的timeout
 
 function $(name) {
   return document.getElementById(name) || document.getElementsByClassName(name);
@@ -26,6 +25,16 @@ document.addEventListener('visibilitychange', function () {
 });
 
 window.onload = function () {
+  consoleOutputBox = new Vue({
+    el: "#console-output-box",
+    data: {
+      consoleOutput: [],
+      lineAccount: 0
+    }
+  });
+  console.log = consoleOutputFunc;
+  console.error = consoleOutputFunc;
+  console.info = consoleOutputFunc;
   databaseLoad();
   elementsLoad();
   forFirefox();
@@ -38,6 +47,7 @@ window.onload = function () {
 function elementsLoad() {
   var engineChs = $("engine-walker");
   for (var i = 0; i < Object.keys(engineList).length; ++i) {
+    // TODO: 使用Vue.js更新这里的代码
     var ith = document.createElement('span');
     ith.id = engineIdBefore + i;
     ith.innerHTML = engineList[i].name;
@@ -49,6 +59,17 @@ function elementsLoad() {
     }
     engineChs.appendChild(ith);
   }
+  consoleOrderInput = new Vue({
+    el: "#console-order-input",
+    methods: {
+      sendOrder: function () {
+        var order = $("console-order-input").value;
+        console.log("$User> " + order);
+        $("console-order-input").value = "";
+        eval(order);
+      }
+    }
+  });
   changeEngineTo(engine);
   updateWalker();
   addAttributesToElements();
@@ -56,19 +77,13 @@ function elementsLoad() {
 }
 
 function addAttributesToElements() {
-  // TODO: Judge the background is light or dark.
+  // TODO: 判断背景亮暗
   if (configCheck('judgeBgShade')) {
     var bg = $('bg');
     for (var i = 0; i < Object.keys(engineList).length; ++i) {
       getEngineElement(i).classList.add("text-stroker");
     }
   }
-  engineEditorTopText = new Vue({
-    el: "#engine-eidtor-toptext",
-    data: {
-      message: "引擎修改界面"
-    }
-  });
 }
 
 function addEventsToElements() {
@@ -106,8 +121,14 @@ function forFirefox() {
 var engineChsEntered = false;
 var engineSelected = -1;
 
+// 控制台输出函数
+function consoleOutputFunc(text) {
+  consoleOutputBox.consoleOutput.push({ lineNum: ++consoleOutputBox.lineAccount, output: text, isUser: text.indexOf("$User> ") == 0});
+}
+
 function documentElement_onkeydown(e) {
-  $('schbox').focus();
+  if (!getKeyInJam)
+    $('schbox').focus();
 }
 
 function documentElement_onpaste(e) {
@@ -130,8 +151,9 @@ function allEventListener_ondblclick() {
   // TODO: 创建新便笺
 }
 
+// 在#engine-body上右键开启引擎编辑器
 function engineBody_oncontextmenu(e) {
-  return;
+  return;  // 暴力隐藏未开发完成的内容
   if (e.button == 2) {
     var ee = $('engine-editor');
     engineEditorShow(e);
@@ -139,11 +161,11 @@ function engineBody_oncontextmenu(e) {
   }
 }
 
+// 这两个函数用于，在鼠标移入/移出时，更新选中引擎两边的引擎的透明度
 function engineBody_onmouseenter() {
   engineChsEntered = true;
   engineUpdateNearBy("100%");
 }
-
 function engineBody_onmouseleave() {
   engineChsEntered = false;
   engineUpdateNearBy("70%");
@@ -152,11 +174,10 @@ function engineBody_onmouseleave() {
 function engine_onmouseup(e) {
   var btn = e.button;
   if (btn == 2) {
-    return;
+    return;// 暴力隐藏未开发完成的内容
     var ee = $('engine-editor');
     e.preventDefault();
     engineEditorShow(e);
-//    engineEdited = 
   } else if (btn == 0) {
     if (this.id.substring(engineIdBefore.length) * 1 == engine) {
       window.open(engineList[engine].searchnan);
@@ -168,14 +189,17 @@ function engine_onmouseup(e) {
   }
 }
 
+// 引擎编辑器确定按钮
 function engineEditorSure_onclick() {
   engineEditorClose();
 }
 
+// 引擎编辑器取消按钮
 function engineEditorCancle_onclick() {
   engineEditorClose();
 }
 
+// schbox的系列事件
 function schbox_onpaste() {
   $('clean-line').style.width = cleanLineNormalWidth + "px";
 }
@@ -196,6 +220,7 @@ function schbox_onkeyup() {
   }
 }
 
+// 左侧的恢复按钮的点击事件
 function reductionButton_click() {
   var sb = $('schbox');
   if (cleanRecord != "" && sb.value == "") {
@@ -227,6 +252,7 @@ function updateTitle() {
   document.title = normalTitle + " - " + engineList[engine].name;
 }
 
+// 显示引擎编辑器
 function engineEditorShow(e) {
   var ee = $('engine-editor');
   ee.classList.remove("window-editor-hidden");
@@ -236,7 +262,13 @@ function engineEditorShow(e) {
 
 }
 
+// 关闭引擎编辑器
 function engineEditorClose() {
   $('engine-editor').classList.remove("window-editor-shown");
   $('engine-editor').classList.add("window-editor-hidden");
+}
+
+function windowBoxShow() {
+  getKeyInJam = true;
+  $("window-box").setAttribute("style", "display: flex");
 }
