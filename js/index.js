@@ -66,7 +66,9 @@ function elementsLoad() {
         var order = $("console-order-input").value;
         console.log("$User> " + order);
         $("console-order-input").value = "";
-        eval(order);
+        var res = eval(order);
+        if (res != undefined)
+          console.log(res);
       }
     }
   });
