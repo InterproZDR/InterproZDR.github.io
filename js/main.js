@@ -1,0 +1,185 @@
+
+var bookmarkList = Array();
+var searchorList = Array();
+var searchorIndex = 0;
+let searchorSelectionStatue = "HIDE";
+let VCtimeout = null;
+const databasePrefix = "SPRING-PLATE-";
+const urlAgreements = ["https://", "file://", "http://", "ftp://"];
+var titles = ['你去哪里啦？', '多冷啊，我在东北玩泥巴', '页面出现错误！（误）'];
+var welcomeBackTitle = '欢迎回来！(〃\'▽\'〃)';
+var normalTitle = '麻雀小起始页';
+
+class searchor{
+    searchorLink = "";
+    searchorNone = "";
+    _vue = undefined;
+    constructor(searchorLink, searchorNone) {
+        this.searchorLink = searchorLink;
+        this.searchorNone = searchorNone;
+    }
+    getJSON() {
+        return "{searchorLink:\"" + this.searchorLink + "\",searchorNone:\"" + this.searchorNone + "\",title:\"" + title + "\"}";
+    }
+    praseJSON(JSONcode) {
+        var searchorData = JSON.prase(JSONcode);
+        this.praseMap(searchorData);
+    }
+    praseMap(datamap) {
+        this.searchorLink = datamap["searchorLink"];
+        this.searchorNone = datamap["searchorNone"];
+    }
+}
+
+setInterval(function () {
+    var dt = new Date();
+    document.getElementById("time-hour").innerHTML = dt.getHours() < 10 ? "0" + dt.getHours() : dt.getHours();
+    document.getElementById("time-minute").innerHTML = dt.getMinutes() < 10 ? "0" + dt.getMinutes() : dt.getMinutes();
+}, 1000);
+
+document.addEventListener('visibilitychange', function () {
+  if (document.visibilityState == 'hidden'){
+    document.title = titles[Math.floor(Math.random() * Object.keys(titles).length)];
+    if (VCtimeout != null) {
+      clearTimeout(VCtimeout);
+      VCtimeout = null;
+    }
+  } else{
+    document.title = welcomeBackTitle;
+      VCtimeout = setTimeout(function () { document.title = normalTitle }, 1000);
+  }
+});
+
+window.onload = function () {
+    console.log(document.getElementById("time-display").offsetWidth);
+    databaseLoad();
+    eventsLoad();
+    vueLoad();
+    console.log("Loaded.");
+    console.log("本起始页暂未完成.");
+    console.log("大佬做的起始页：https://a.maorx.cn");
+    console.log("大佬做的起始页：https://a.maorx.cn");
+    console.log("大佬做的起始页：https://a.maorx.cn");
+};
+
+function databaseLoad() {
+/*    var bookmarkData = JSON.parse(databaseGet("bookmarkList"));
+    var searchorData = JSON.parse(databaseGet("searchorList"));
+    if (searchorData == undefined) {
+        searchorData = {}
+    }*/
+    // 咕咕咕
+    searchorList = Array();
+    searchorList.push(new searchor("https://www.baidu.com/s?wd=%s", "https://www.baidu.com/"));
+    searchorList.push(new searchor("https://cn.bing.com/search?q=%s", "https://cn.bing.com/"));
+    searchorList.push(new searchor("https://search.bilibili.com/all?keyword=%s", "https://www.bilibili.com/"));
+    searchorList.push(new searchor("https://www.acfun.cn/search?keyword=%s", "https://www.acfun.cn/")); 
+    searchorList.push(new searchor("https://zh.moegirl.org/index.php?search=%s", "https://zh.moegirl.org/Mainpage"));
+    searchorList.push(new searchor("https://translate.google.cn/#view=home&op=translate&sl=auto&tl=en&text=%s", "https://translate.google.cn/"));
+    document.getElementById("searchor-selector").style.backgroundImage = "url(" + cutFaviconUrl(searchorList[0]["searchorNone"]) + ")";
+}
+
+function databaseGet(name) {
+    return localStorage.getItem(name);
+}
+
+function databaseSave(name, val) {
+    localStorage.setItem(databasePrefix + name, val);
+}
+
+function databaseRemove(name) {
+    localStorage.removeItem(name);
+}
+
+function eventsLoad() {
+    document.documentElement.onkeydown = documentElement_onkeydown;
+    document.getElementById("searchor-selector").onclick = searchorSelector_onclick;
+    document.getElementById("searchor-selection-title").onclick = searchorSelectionTitle_onclick;
+    document.getElementById("searchor-search").onclick = search;
+    document.getElementById("searchor-input").onkeydown = searchorInput_onkeydown;
+}
+
+function vueLoad() {
+    // TODO: 把非Vue代码改成Vue代码
+    var slist = document.getElementById("searchor-selection-list");
+    for (var i = 0; i < Object.keys(searchorList).length; ++i){
+        var smonomer = searchorList[i];
+        var sdom = document.createElement("div");
+        sdom.classList += "searchor-monomer";
+        sdom.setAttribute("style", "background-image:url(" + cutFaviconUrl(smonomer["searchorLink"]) + ")");
+        sdom.onclick = searchorMonomer_onclick;
+        sdom.id = "searchor-monomer-" + i;
+        sdom.title = smonomer["searchorNone"];
+        slist.appendChild(sdom);
+    }
+}
+
+function documentElement_onkeydown(e) {
+    document.getElementById('searchor-input').focus();
+}
+
+function cutFaviconUrl(source) {
+    var res = "", slashCount = 0;
+    for (var i = 0; i < Object.keys(source).length; ++i){
+        if (source[i] == "/" && ++slashCount >= 3)
+            break;
+        res += source[i];
+    }
+    return res + "/favicon.ico";
+}
+
+function searchorSelector_onclick() {
+    if (searchorSelectionStatue == "OPEN") {
+        window.open(searchorList[searchorIndex].searchorNone);
+        searchorSelectionHide();
+    }
+    else
+        searchorSelectionOpen();
+}
+
+function searchorMonomer_onclick() {
+    searchorSelectionHide();
+    searchorIndex = 0;
+    for (var i = Object.keys(this.id).length - 1; this.id[i] * 1 >= 0 && this.id[i] <= 9; --i){
+        searchorIndex = this.id[i] * 1 + searchorIndex * 10;
+    }
+    document.getElementById("searchor-selector").style.backgroundImage = "url(" + cutFaviconUrl(searchorList[searchorIndex]["searchorNone"]) + ")";
+}
+
+function searchorSelectionTitle_onclick() {
+    searchorSelectionHide();
+}
+
+function searchorSelectionHide() {
+    document.getElementById("searchor-selection-window").style.display = "none";
+    searchorSelectionStatue = "HIDE";
+}
+
+function searchorSelectionOpen() {
+    document.getElementById("searchor-selection-window").style.display = "";
+    searchorSelectionStatue = "OPEN";
+}
+
+function searchorInput_onkeydown() { 
+    var e = event || window.event || arguments.callee.caller.arguments[0];
+    if (e) {
+        var key = e.keyCode;
+        if (key == 13 || key == 10)
+            search();
+    }
+}
+
+function search() {
+    var text = document.getElementById("searchor-input").value;
+    if (text == "") {
+        window.open(searchorList[searchorIndex].searchorNone);
+        return;
+    }
+    for (var i = Object.keys(urlAgreements).length - 1; i >= 0; --i) {
+        if (text.indexOf(urlAgreements[i]) == 0) {
+            window.open(text);
+            return;
+        }
+    }
+    window.open(searchorList[searchorIndex].searchorLink.replace("%s", text));
+}
