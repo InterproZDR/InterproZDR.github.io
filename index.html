@@ -4,6 +4,7 @@
         <meta charset="utf-8">
         <title>麻雀小起始页</title>
         <link href="./css/main.css" rel="stylesheet" type="text/css">
+        <link rel="Shortcut Icon" href="./img/searchor.png" type="image/x-icon">
         <script src="./js/main.js"></script>
         <script src="./js/vue.js"></script>
     </head>
@@ -12,13 +13,13 @@
         <div id="bg" style="background-image: url(https://cn.bing.com/th?id=OHR.EarthriseSequence_ZH-CN0750195611_1920x1080.jpg&rf=LaDigue_1920x1080.jpg&pid=hp);"></div>
         <div id="bg-cover"></div>
         <div id="time-display">
-            <div><span id="time-hour">23</span><span id="time-display-colon">:</span><span id="time-minute">33</span></div>
+            <div><span id="time-hours">{{ hours }}</span><span id="time-display-colon">:</span><span id="time-minutes">{{ minutes }}</span></div>
             <!--<div id="time-date">2020-07-20</div>--><!--咕咕咕-->
         </div>
         <div id="searchor-group-position">
             <input type="button" value="" id="searchor-selector" class="searchor-button" v-bind:style="style">
             <input type="text" placeholder="Search" id="searchor-input" autocomplete="off" required="true">
-            <input type="button" value=">" id="searchor-search" class="searchor-button">
+            <input type="button" value="" id="searchor-search" class="searchor-button">
         </div>
         <div id="clean-line-body"><i id="clean-line"></i></div>
         <div id="bookrmark-body">
@@ -31,6 +32,12 @@
             <div id="searchor-selection-list" class="no-selection">
                 <!--<div class="searchor-monomer" style="background-image: url(https://iph.href.lu/128x128?bg=233333&fg=FC3&text=A)"></div>-->
             </div>
+        </div>
+        <div id="window-system">
+            <!--窗口系统，咕咕咕-->
+        </div>
+        <div id="bottom-window-list">
+            <!--任务栏，咕咕咕-->
         </div>
     </body>
 </html>

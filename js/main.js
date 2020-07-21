@@ -3,12 +3,16 @@ var bookmarkList = Array();
 var searchorList = Array();
 var searchorIndex = 0;
 let searchorSelectionStatue = "HIDE";
-let VCtimeout = null;
+
+var vue_timeHours, vue_timeMinutes;
+
 const databasePrefix = "SPRING-PLATE-";
 const urlAgreements = ["https://", "file://", "http://", "ftp://"];
+
 var titles = ['你去哪里啦？', '多冷啊，我在东北玩泥巴', '页面出现错误！（误）'];
 var welcomeBackTitle = '欢迎回来！(〃\'▽\'〃)';
 var normalTitle = '麻雀小起始页';
+let VCtimeout = null;
 
 class searchor{
     searchorLink = "";
@@ -33,8 +37,8 @@ class searchor{
 
 setInterval(function () {
     var dt = new Date();
-    document.getElementById("time-hour").innerHTML = dt.getHours() < 10 ? "0" + dt.getHours() : dt.getHours();
-    document.getElementById("time-minute").innerHTML = dt.getMinutes() < 10 ? "0" + dt.getMinutes() : dt.getMinutes();
+    vue_timeHours.hours = dt.getHours() < 10 ? "0" + dt.getHours() : dt.getHours();
+    vue_timeMinutes.minutes = dt.getMinutes() < 10 ? "0" + dt.getMinutes() : dt.getMinutes();
 }, 1000);
 
 document.addEventListener('visibilitychange', function () {
@@ -51,7 +55,6 @@ document.addEventListener('visibilitychange', function () {
 });
 
 window.onload = function () {
-    console.log(document.getElementById("time-display").offsetWidth);
     databaseLoad();
     eventsLoad();
     vueLoad();
@@ -80,7 +83,7 @@ function databaseLoad() {
 }
 
 function databaseGet(name) {
-    return localStorage.getItem(name);
+    return localStorage.getItem(databasePrefix + name);
 }
 
 function databaseSave(name, val) {
@@ -88,18 +91,36 @@ function databaseSave(name, val) {
 }
 
 function databaseRemove(name) {
-    localStorage.removeItem(name);
+    localStorage.removeItem(databasePrefix + name);
 }
 
 function eventsLoad() {
     document.documentElement.onkeydown = documentElement_onkeydown;
     document.getElementById("searchor-selector").onclick = searchorSelector_onclick;
-    document.getElementById("searchor-selection-title").onclick = searchorSelectionTitle_onclick;
     document.getElementById("searchor-search").onclick = search;
     document.getElementById("searchor-input").onkeydown = searchorInput_onkeydown;
+    document.onclick = function () {
+        searchorSelectionHide();
+    }
+    document.getElementById("searchor-selection-window").onclick = function () {
+        var e = event || window.event;
+        e.stopPropagation();
+    }
 }
 
 function vueLoad() {
+    vue_timeHours = new Vue({
+        el: "#time-hours",
+        data: {
+            hours: 23
+        }
+    });
+    vue_timeMinutes = new Vue({
+        el: "#time-minutes",
+        data: {
+            minutes: 33
+        }
+    });
     // TODO: 把非Vue代码改成Vue代码
     var slist = document.getElementById("searchor-selection-list");
     for (var i = 0; i < Object.keys(searchorList).length; ++i){
@@ -135,6 +156,7 @@ function searchorSelector_onclick() {
     }
     else
         searchorSelectionOpen();
+    (event || window.event).stopPropagation();
 }
 
 function searchorMonomer_onclick() {
@@ -144,10 +166,6 @@ function searchorMonomer_onclick() {
         searchorIndex = this.id[i] * 1 + searchorIndex * 10;
     }
     document.getElementById("searchor-selector").style.backgroundImage = "url(" + cutFaviconUrl(searchorList[searchorIndex]["searchorNone"]) + ")";
-}
-
-function searchorSelectionTitle_onclick() {
-    searchorSelectionHide();
 }
 
 function searchorSelectionHide() {
@@ -161,7 +179,7 @@ function searchorSelectionOpen() {
 }
 
 function searchorInput_onkeydown() { 
-    var e = event || window.event || arguments.callee.caller.arguments[0];
+    var e = event || window.event;
     if (e) {
         var key = e.keyCode;
         if (key == 13 || key == 10)

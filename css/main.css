@@ -141,23 +141,25 @@ body{
 
 #searchor-search{
     left: -44px;
-    background-color: rgba(255, 255, 255, .2);
+    background-color: rgba(255, 255, 255, .4);
+    background-image: url(../img/searchor.png);
+    background-size: 37%;
     backdrop-filter: blur(2px);
     transition: background-color .26s;
 }
 #searchor-search:hover{
-    background-color: rgba(255, 255, 255, .7);
+    background-color: rgba(255, 255, 255, .83);
 }
 
 #searchor-selection-window{
     background-color: white;
     border-radius: 8px;
     box-shadow: 0px 0px 2px rgb(90, 110, 130);
-    height: 30vh;
-    left: 257px;
+    height: 180px;
+    left: calc(50% - 388px);
     top: 244px;
     position: fixed;
-    width: 24vw;
+    width: 256px;
     z-index: 999;
 }
 
@@ -169,7 +171,7 @@ body{
 }
 
 #searchor-selection-list{
-    height: calc(100% - 33px);
+    height: calc(180px - 36px);
     overflow-y: scroll;
     width: 100%;
 }
