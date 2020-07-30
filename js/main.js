@@ -259,7 +259,7 @@ function cleanLineBody_onclick() {
     if (vue_cleanLineBody.clbStyle.opacity != "0%") {
         vue_searchorInput.text = "";
         vue_cleanLineBody.clbStyle.opacity = "0%";
-        vue_cleanLineBody.clbStyle.cursor = "pointer";
+        vue_cleanLineBody.clbStyle.cursor = "default";
     }
     updateBaidu();
 }
