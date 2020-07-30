@@ -1,10 +1,11 @@
-
-var bookmarkList = Array();
 var searchorList = Array();
 var searchorIndex = 0;
 let searchorSelectionStatue = "HIDE";
 
 var vue_timeHours, vue_timeMinutes;
+var vue_searchorInput;  // 输入框
+var vue_cleanLineBody;  // 清除线
+var vue_searchorLenovo; // 联想
 
 const databasePrefix = "SPRING-PLATE-";
 const urlAgreements = ["https://", "file://", "http://", "ftp://"];
@@ -65,6 +66,17 @@ window.onload = function () {
     console.log("大佬做的起始页：https://a.maorx.cn");
 };
 
+window.baidu = {
+    sug: function (json) {
+        vue_searchorLenovo.lenovoText = [];
+        if (json["g"] == undefined || Object.keys(json["g"]).length == 0)
+            return;
+        for (var i = 0; i < Object.keys(json["g"]).length; ++i){
+            vue_searchorLenovo.lenovoText.push({ text: json["g"][i]["q"] });
+        }
+    }
+}
+
 function databaseLoad() {
 /*    var bookmarkData = JSON.parse(databaseGet("bookmarkList"));
     var searchorData = JSON.parse(databaseGet("searchorList"));
@@ -82,17 +94,7 @@ function databaseLoad() {
     document.getElementById("searchor-selector").style.backgroundImage = "url(" + cutFaviconUrl(searchorList[0]["searchorNone"]) + ")";
 }
 
-function databaseGet(name) {
-    return localStorage.getItem(databasePrefix + name);
-}
-
-function databaseSave(name, val) {
-    localStorage.setItem(databasePrefix + name, val);
-}
-
-function databaseRemove(name) {
-    localStorage.removeItem(databasePrefix + name);
-}
+/*function databaseGet(name) {return localStorage.getItem(databasePrefix + name);}function databaseSave(name, val) {localStorage.setItem(databasePrefix + name, val);}function databaseRemove(name) {localStorage.removeItem(databasePrefix + name);}*/
 
 function eventsLoad() {
     document.documentElement.onkeydown = documentElement_onkeydown;
@@ -119,6 +121,27 @@ function vueLoad() {
         el: "#time-minutes",
         data: {
             minutes: 33
+        }
+    });
+    vue_searchorInput = new Vue({
+        el: "#searchor-input",
+        data: {
+            text: ""
+        }
+    });
+    vue_cleanLineBody = new Vue({
+        el: "#clean-line-body",
+        data: {
+            clbStyle: {
+                opacity: "0%",
+                cursor: "default"
+            }
+        }
+    });
+    vue_searchorLenovo = new Vue({
+        el: "#searchor-lenovo",
+        data: {
+            lenovoText: []
         }
     });
     // TODO: 把非Vue代码改成Vue代码
@@ -178,17 +201,47 @@ function searchorSelectionOpen() {
     searchorSelectionStatue = "OPEN";
 }
 
-function searchorInput_onkeydown() { 
+function searchorInput_onkeydown() {
     var e = event || window.event;
     if (e) {
         var key = e.keyCode;
         if (key == 13 || key == 10)
             search();
     }
+    if (vue_searchorInput.text != "") {
+        vue_cleanLineBody.clbStyle.opacity = "100%";
+        vue_cleanLineBody.clbStyle.cursor = "pointer";
+    }
+    else {
+        vue_cleanLineBody.clbStyle.opacity = "0%";
+        vue_cleanLineBody.clbStyle.cursor = "default";
+    }
+    updateBaidu();
+}
+
+function updateBaidu() {
+    try {
+        if (document.getElementById("lenovo"))
+            document.getElementsByTagName("head")[0].removeChild(document.getElementById("lenovo"));
+        if (vue_searchorInput.text == "") {
+            vue_searchorLenovo.lenovoText = [];
+            return;
+        }
+    }
+    catch (e) {
+        console.error(e);
+    }
+    var newBaidu = document.createElement("script");
+    newBaidu.id = "lenovo";
+    newBaidu.type = "text/javascript";
+    newBaidu.src = ("https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su?wd=%s&json=1").replace("%s", vue_searchorInput.text);
+    document.getElementsByTagName("head")[0].appendChild(newBaidu);
+    
 }
 
 function search() {
-    var text = document.getElementById("searchor-input").value;
+/*    var text = document.getElementById("searchor-input").value;*/
+    var text = vue_searchorInput.text;
     if (text == "") {
         window.open(searchorList[searchorIndex].searchorNone);
         return;
@@ -200,4 +253,18 @@ function search() {
         }
     }
     window.open(searchorList[searchorIndex].searchorLink.replace("%s", text));
+}
+
+function cleanLineBody_onclick() {
+    if (vue_cleanLineBody.clbStyle.opacity != "0%") {
+        vue_searchorInput.text = "";
+        vue_cleanLineBody.clbStyle.opacity = "0%";
+        vue_cleanLineBody.clbStyle.cursor = "pointer";
+    }
+    updateBaidu();
+}
+
+function searchorLenovoMonomoer_click(altText) {
+    vue_searchorInput.text = altText;
+    updateBaidu();
 }

@@ -9,8 +9,9 @@
         <script src="./js/vue.js"></script>
     </head>
     <body>
-        <!--<div id="bg" style="background-image: url(https://api.hanximeng.com/bing/);"></div>-->
-        <div id="bg" style="background-image: url(https://cn.bing.com/th?id=OHR.EarthriseSequence_ZH-CN0750195611_1920x1080.jpg&rf=LaDigue_1920x1080.jpg&pid=hp);"></div>
+        <div id="bg" style="background-image: url(https://www.ixiaojun.com/img/api.php);"></div>
+        <!--<div id="bg" style="background-image: url(https://cn.bing.com/th?id=OHR.EarthriseSequence_ZH-CN0750195611_1920x1080.jpg&rf=LaDigue_1920x1080.jpg&pid=hp);"></div>-->
+        <!--<div id="bg" style="background-image: url(https://hlz.ink/randomPic.html);"></div>-->
         <div id="bg-cover"></div>
         <div id="time-display">
             <div><span id="time-hours">{{ hours }}</span><span id="time-display-colon">:</span><span id="time-minutes">{{ minutes }}</span></div>
@@ -18,11 +19,14 @@
         </div>
         <div id="searchor-group-position">
             <input type="button" value="" id="searchor-selector" class="searchor-button" v-bind:style="style">
-            <input type="text" placeholder="Search" id="searchor-input" autocomplete="off" required="true">
+            <input type="text" placeholder="Search" id="searchor-input" autocomplete="off" required="true" v-model="text" @keyup="searchorInput_onkeydown()">
             <input type="button" value="" id="searchor-search" class="searchor-button">
         </div>
-        <div id="clean-line-body"><i id="clean-line"></i></div>
-        <div id="bookrmark-body">
+        <div id="clean-line-body" v-bind:style="clbStyle" @click="cleanLineBody_onclick();"><i id="clean-line"></i></div>
+        <div id="searchor-lenovo">
+            <div class="searchor-lenovo-monomer no-selection" v-for="single in lenovoText" v-bind:title="single.text" @click="searchorLenovoMonomoer_click(single.text);">
+                {{ single.text }}
+            </div>
         </div>
         <!--选择搜索器窗口-->
         <div id="searchor-selection-window" style="display: none;">
@@ -35,9 +39,6 @@
         </div>
         <div id="window-system">
             <!--窗口系统，咕咕咕-->
-        </div>
-        <div id="bottom-window-list">
-            <!--任务栏，咕咕咕-->
         </div>
     </body>
 </html>
