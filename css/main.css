@@ -133,7 +133,9 @@ body{
 }
 
 #searchor-selector{
-    background-size: 98%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 99%;
     left: +44px;
     transition: background-size .4s;
     z-index: 6;
@@ -183,6 +185,14 @@ body{
     width: 526px;
     overflow-y: auto;
     transition: all .26s;
+}
+
+#searchor-last-record{
+    background: wheat;
+    transition: all .26s;
+}
+#searchor-last-record:hover{
+    background: rgb(230, 200, 180);
 }
 
 #searchor-selection-window{

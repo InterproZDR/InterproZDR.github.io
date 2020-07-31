@@ -68,12 +68,15 @@ window.onload = function () {
 
 window.baidu = {
     sug: function (json) {
-        vue_searchorLenovo.lenovoText = [];
-        if (json["g"] == undefined || Object.keys(json["g"]).length == 0)
+        if (json["g"] == undefined || Object.keys(json["g"]).length == 0) {
+            vue_searchorLenovo.lenovoText = [];
             return;
-        for (var i = 0; i < Object.keys(json["g"]).length; ++i){
-            vue_searchorLenovo.lenovoText.push({ text: json["g"][i]["q"] });
         }
+        var alt = [];
+        for (var i = 0; i < Object.keys(json["g"]).length; ++i){
+            alt.push({ text: json["g"][i]["q"] });
+        }
+        vue_searchorLenovo.lenovoText = alt;
     }
 }
 
@@ -141,7 +144,8 @@ function vueLoad() {
     vue_searchorLenovo = new Vue({
         el: "#searchor-lenovo",
         data: {
-            lenovoText: []
+            lenovoText: [],
+            lastRecord: ""
         }
     });
     // TODO: 把非Vue代码改成Vue代码
@@ -208,14 +212,7 @@ function searchorInput_onkeydown() {
         if (key == 13 || key == 10)
             search();
     }
-    if (vue_searchorInput.text != "") {
-        vue_cleanLineBody.clbStyle.opacity = "100%";
-        vue_cleanLineBody.clbStyle.cursor = "pointer";
-    }
-    else {
-        vue_cleanLineBody.clbStyle.opacity = "0%";
-        vue_cleanLineBody.clbStyle.cursor = "default";
-    }
+    cleanLineBody_update();
     updateBaidu();
 }
 
@@ -242,6 +239,8 @@ function updateBaidu() {
 function search() {
 /*    var text = document.getElementById("searchor-input").value;*/
     var text = vue_searchorInput.text;
+    vue_searchorLenovo.lastRecord = vue_searchorInput.text;
+    vue_searchorInput.text = "";
     if (text == "") {
         window.open(searchorList[searchorIndex].searchorNone);
         return;
@@ -255,16 +254,33 @@ function search() {
     window.open(searchorList[searchorIndex].searchorLink.replace("%s", text));
 }
 
-function cleanLineBody_onclick() {
-    if (vue_cleanLineBody.clbStyle.opacity != "0%") {
-        vue_searchorInput.text = "";
+function cleanLineBody_update() {
+    if (vue_searchorInput.text != "") {
+        vue_cleanLineBody.clbStyle.opacity = "100%";
+        vue_cleanLineBody.clbStyle.cursor = "pointer";
+    }
+    else {
         vue_cleanLineBody.clbStyle.opacity = "0%";
         vue_cleanLineBody.clbStyle.cursor = "default";
     }
+}
+
+function cleanLineBody_onclick() {
+    vue_searchorLenovo.lastRecord = vue_searchorInput.text;
+    vue_searchorInput.text = "";
+    cleanLineBody_update();
     updateBaidu();
 }
 
 function searchorLenovoMonomoer_click(altText) {
+    vue_searchorLenovo.lastRecord = vue_searchorInput.text;
     vue_searchorInput.text = altText;
+    cleanLineBody_update();
+    updateBaidu();
+}
+
+function lastRecord_onclick() {
+    vue_searchorInput.text = vue_searchorLenovo.lastRecord;
+    vue_searchorLenovo.lastRecord = "";
     updateBaidu();
 }

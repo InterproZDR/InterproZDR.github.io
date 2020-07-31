@@ -18,12 +18,15 @@
             <!--<div id="time-date">2020-07-20</div>--><!--咕咕咕-->
         </div>
         <div id="searchor-group-position">
-            <input type="button" value="" id="searchor-selector" class="searchor-button" v-bind:style="style">
+            <input type="button" value="" id="searchor-selector" class="searchor-button">
             <input type="text" placeholder="Search" id="searchor-input" autocomplete="off" required="true" v-model="text" @keyup="searchorInput_onkeydown()">
             <input type="button" value="" id="searchor-search" class="searchor-button">
         </div>
         <div id="clean-line-body" v-bind:style="clbStyle" @click="cleanLineBody_onclick();"><i id="clean-line"></i></div>
         <div id="searchor-lenovo">
+            <div id="searchor-last-record" class="searchor-lenovo-monomer no-selection" v-if="lastRecord != ''" @click="lastRecord_onclick();">
+                {{ lastRecord }}
+            </div>
             <div class="searchor-lenovo-monomer no-selection" v-for="single in lenovoText" v-bind:title="single.text" @click="searchorLenovoMonomoer_click(single.text);">
                 {{ single.text }}
             </div>
@@ -38,7 +41,9 @@
             </div>
         </div>
         <div id="window-system">
-            <!--窗口系统，咕咕咕-->
+            <div class="window">
+
+            </div>
         </div>
     </body>
 </html>
