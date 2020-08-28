@@ -7,7 +7,7 @@ body{
 }
 
 ::selection{
-    background: rgba(0, 102, 204, .6);
+    background: #6cf;
     color: white;
 }
 
@@ -136,7 +136,7 @@ body{
     background-position: center;
     background-repeat: no-repeat;
     background-size: 99%;
-    left: +44px;
+    left: +40px;
     transition: background-size .4s;
     z-index: 6;
 }
@@ -145,7 +145,7 @@ body{
 }
 
 #searchor-search{
-    left: -44px;
+    left: -40px;
     background-color: rgba(255, 255, 255, .4);
     background-image: url(../img/searchor.png);
     background-size: 37%;
@@ -153,7 +153,7 @@ body{
     transition: background-color .26s;
 }
 #searchor-search:hover{
-    background-color: rgba(255, 255, 255, .83);
+    background-color: white;
 }
 
 #clean-line-body{
@@ -181,7 +181,6 @@ body{
     top: 270px;
     position: fixed;
     left: calc(50% - 261px);
-    transition: all .26s;
     width: 526px;
     overflow-y: auto;
     transition: all .26s;
@@ -216,7 +215,7 @@ body{
 
 #searchor-selection-list{
     height: calc(180px - 36px);
-    overflow-y: scroll;
+    overflow-y: auto;
     width: 100%;
 }
 

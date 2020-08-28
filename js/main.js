@@ -89,6 +89,7 @@ function databaseLoad() {
     // 咕咕咕
     searchorList = Array();
     searchorList.push(new searchor("https://www.baidu.com/s?wd=%s", "https://www.baidu.com/"));
+    searchorList.push(new searchor("https://www.google.com/search?q=%s", "https://www.google.com/"));
     searchorList.push(new searchor("https://cn.bing.com/search?q=%s", "https://cn.bing.com/"));
     searchorList.push(new searchor("https://search.bilibili.com/all?keyword=%s", "https://www.bilibili.com/"));
     searchorList.push(new searchor("https://www.acfun.cn/search?keyword=%s", "https://www.acfun.cn/")); 
@@ -193,6 +194,7 @@ function searchorMonomer_onclick() {
         searchorIndex = this.id[i] * 1 + searchorIndex * 10;
     }
     document.getElementById("searchor-selector").style.backgroundImage = "url(" + cutFaviconUrl(searchorList[searchorIndex]["searchorNone"]) + ")";
+    document.getElementById("searchor-input").focus();
 }
 
 function searchorSelectionHide() {
@@ -255,7 +257,7 @@ function search() {
 }
 
 function cleanLineBody_update() {
-    if (vue_searchorInput.text != "") {
+    if (vue_searchorInput.text != "" || vue_searchorLenovo.lastRecord != "") {
         vue_cleanLineBody.clbStyle.opacity = "100%";
         vue_cleanLineBody.clbStyle.cursor = "pointer";
     }
@@ -276,6 +278,7 @@ function searchorLenovoMonomoer_click(altText) {
     vue_searchorLenovo.lastRecord = vue_searchorInput.text;
     vue_searchorInput.text = altText;
     cleanLineBody_update();
+    search();
     updateBaidu();
 }
 
